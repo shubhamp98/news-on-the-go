@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/liveNewsFragment">
+
+    <fragment
+        android:id="@+id/liveNewsFragment"
+        android:name="com.shubhampandey.newsonthego.fragment.LiveNewsFragment"
+        android:label="fragment_live_news"
+        tools:layout="@layout/fragment_live_news" >
+        <action
+            android:id="@+id/action_liveNewsFragment_to_displaySearchedNewsFragment"
+            app:destination="@id/displaySearchedNewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displaySearchedNewsFragment"
+        android:name="com.shubhampandey.newsonthego.fragment.SearchNewsFragment"
+        android:label="fragment_display_searched_news"
+        tools:layout="@layout/fragment_display_search_news" />
+</navigation>

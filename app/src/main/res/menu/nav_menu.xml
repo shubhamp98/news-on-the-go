@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/home_menu"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/home_menu"
+        android:checked="true"/>
+
+    <item
+        android:id="@+id/category_menu"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/category_menu" />
+
+    <item
+        android:id="@+id/bookmarked_menu"
+        android:icon="@mipmap/ic_launcher"
+        android:title="@string/bookmarked_menu" />
+    </group>
+</menu>
