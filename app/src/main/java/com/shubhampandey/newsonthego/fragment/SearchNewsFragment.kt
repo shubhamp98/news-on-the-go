@@ -1,13 +1,14 @@
 package com.shubhampandey.newsonthego.fragment
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.adapter.NewsAdapter
@@ -40,13 +41,25 @@ class SearchNewsFragment : Fragment() {
      * Call functions to setup the UI
      */
     private fun setupUI() {
+        addFocusAndOpenKeyBoard()
         setupListener()
         createProgressDialog()
         setupRecyclerView()
     }
 
     /**
-     * Add click listeners to views
+     * Add focus to Search view and
+     * show the keyboard
+     */
+    private fun addFocusAndOpenKeyBoard() {
+        searchNews_SV.requestFocus()
+        val imm: InputMethodManager = context
+            ?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(searchNews_SV, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    /**
+     * Add listeners to views
      */
     private fun setupListener() {
         searchNews_SV.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -66,7 +79,7 @@ class SearchNewsFragment : Fragment() {
     }
 
     /**
-     * Visible the view which shows the news
+     * Make view visible which shows the news
      * after fetching and hide other views
      */
     private fun updateUI() {
@@ -78,10 +91,12 @@ class SearchNewsFragment : Fragment() {
         showProgressDialog()
         for (i in 0..10) {
             newsDataset.add(
-                NewsDataClass("This is dummy title of News. This is dummy title of News",
+                NewsDataClass(
+                    "This is dummy title of News. This is dummy title of News",
                     "This is a dummy new description for UI purpose. This is dummy title of News. This is dummy title of News",
                     "https://static.vecteezy.com/system/resources/previews/000/228/631/non_2x/vector-news-background-with-text-live-updates.jpg",
-                    "24-04-2021")
+                    "24-04-2021"
+                )
             )
         }
         searchNewsList_RV.adapter!!.notifyDataSetChanged()

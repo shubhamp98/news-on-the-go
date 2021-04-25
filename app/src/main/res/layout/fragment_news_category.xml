@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.NewsCategoryFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/unit_10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/unit_10dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/categoryGeneralNews"
+                style="@style/single_news_category_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_10dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:src="@drawable/ic_baseline_blur_circular_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_10dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:layout_marginBottom="@dimen/unit_20dp"
+                    android:text="General \nNews"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/categoryBusinessNews"
+                style="@style/single_news_category_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_10dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:src="@drawable/ic_baseline_business_center_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_10dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:layout_marginBottom="@dimen/unit_20dp"
+                    android:text="Business \nNews"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/unit_10dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/categoryEntNews"
+                style="@style/single_news_category_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_10dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:src="@drawable/ic_baseline_movie_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_10dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:layout_marginBottom="@dimen/unit_20dp"
+                    android:text="Entertainment News"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/catHealthNews"
+                style="@style/single_news_category_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_10dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:src="@drawable/ic_baseline_health_and_safety_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_10dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:layout_marginBottom="@dimen/unit_20dp"
+                    android:text="Health \nNews"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/unit_10dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/categoryScienceNews"
+                style="@style/single_news_category_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_20dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:src="@drawable/ic_baseline_science_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_20dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:layout_marginBottom="@dimen/unit_20dp"
+                    android:text="Science \nNews"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/categorySportsNews"
+                style="@style/single_news_category_style">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_20dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:src="@drawable/ic_baseline_sports_cricket_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_20dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:layout_marginBottom="@dimen/unit_20dp"
+                    android:text="Sports \nNews"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/unit_10dp"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:id="@+id/categoryTechNews"
+                style="@style/single_news_category_style"
+                android:layout_marginBottom="@dimen/unit_20dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_20dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:src="@drawable/ic_baseline_computer_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/unit_20dp"
+                    android:layout_marginTop="@dimen/unit_20dp"
+                    android:layout_marginBottom="@dimen/unit_20dp"
+                    android:text="Technology \nNews"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_20sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
