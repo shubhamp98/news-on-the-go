@@ -1,23 +1,24 @@
 package com.shubhampandey.newsonthego.fragment
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.SearchView
-import androidx.fragment.app.Fragment
+import android.widget.Toast
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
+import kotlinx.android.synthetic.main.fragment_display_category_news.*
 import kotlinx.android.synthetic.main.fragment_display_search_news.*
 
-class SearchNewsFragment : Fragment() {
+class DisplayCategoryNewsFragment : Fragment() {
 
-    private val TAG = SearchNewsFragment::class.java.simpleName
+    val args: DisplayCategoryNewsFragmentArgs by navArgs()
+    private val TAG = DisplayCategoryNewsFragment::class.java.simpleName
     lateinit var progressDialog: ProgressDialog
     var newsDataset = ArrayList<NewsDataClass>()
     private lateinit var customNewsAdapter: NewsAdapter
@@ -27,63 +28,23 @@ class SearchNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_display_search_news, container, false)
+        return inflater.inflate(R.layout.fragment_display_category_news, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupUI()
+        getDemoLiveNews()
     }
 
-    /**
-     * Call functions to setup the UI
-     */
     private fun setupUI() {
-        addFocusAndOpenKeyBoard()
-        setupListener()
         createProgressDialog()
         setupRecyclerView()
-    }
 
-    /**
-     * Add focus to Search view and
-     * show the keyboard
-     */
-    private fun addFocusAndOpenKeyBoard() {
-        searchNews_SV.requestFocus()
-        val imm: InputMethodManager = context
-            ?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(searchNews_SV, InputMethodManager.SHOW_IMPLICIT)
-    }
-
-    /**
-     * Add listeners to views
-     */
-    private fun setupListener() {
-        searchNews_SV.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchNews_SV.clearFocus()
-                // Fetch the News
-                getDemoLiveNews()
-                // Make news view visible and hide others
-                updateUI()
-                return false // Returning false will hide the keyboard
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
-    }
-
-    /**
-     * Make view visible which shows the news
-     * after fetching and hide other views
-     */
-    private fun updateUI() {
-        searchNewsInfo_TV.visibility = View.GONE
-        searchNewsList_RV.visibility = View.VISIBLE
+        // Update the UI for selected the category
+        val categoryType = args.categoryType
+        displayCategoryType_TV.text = "Category: ${categoryType.toUpperCase()}"
     }
 
     private fun getDemoLiveNews() {
@@ -99,7 +60,7 @@ class SearchNewsFragment : Fragment() {
                 )
             )
         }
-        searchNewsList_RV.adapter!!.notifyDataSetChanged()
+        displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
         dismissProgressDialog()
     }
 
@@ -120,10 +81,10 @@ class SearchNewsFragment : Fragment() {
     private fun setupRecyclerView() {
         // Set layout for RecyclerView
         val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        searchNewsList_RV.layoutManager = linearLayoutManager
+        displayCategoryNews_RV.layoutManager = linearLayoutManager
         customNewsAdapter = context?.let { NewsAdapter(it, newsDataset) }!!
         // attach adapter
-        searchNewsList_RV.adapter = customNewsAdapter
+        displayCategoryNews_RV.adapter = customNewsAdapter
     }
 
     /**

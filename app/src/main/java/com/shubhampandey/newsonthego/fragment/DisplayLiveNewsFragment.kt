@@ -12,13 +12,14 @@ import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
 import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
 import com.shubhampandey.newsonthego.network.ApiClient
-import kotlinx.android.synthetic.main.fragment_live_news.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_display_live_news.*
 import retrofit2.Callback
 import retrofit2.Response
 
-class LiveNewsFragment : Fragment() {
+class DisplayLiveNewsFragment : Fragment() {
 
-    private val TAG = LiveNewsFragment::class.java.simpleName
+    private val TAG = DisplayLiveNewsFragment::class.java.simpleName
     lateinit var progressDialog: ProgressDialog
     var newsDataset = ArrayList<NewsDataClass>()
     private lateinit var customNewsAdapter: NewsAdapter
@@ -28,7 +29,7 @@ class LiveNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_live_news, container, false)
+        return inflater.inflate(R.layout.fragment_display_live_news, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +44,7 @@ class LiveNewsFragment : Fragment() {
     private fun setupUI() {
         createProgressDialog()
         setupRecyclerView()
-        //getLiveNews()
+//        getLiveNews()
         getDemoLiveNews()
         setClickListeners()
     }
@@ -56,7 +57,8 @@ class LiveNewsFragment : Fragment() {
 
     private fun navigateToDisplaySearchedNewsDestination() {
         // Navigate to a destination
-        val action = LiveNewsFragmentDirections.actionLiveNewsFragmentToDisplaySearchedNewsFragment()
+        val action =
+            DisplayLiveNewsFragmentDirections.actionLiveNewsFragmentToDisplaySearchedNewsFragment()
         findNavController().navigate(action)
     }
 
@@ -64,10 +66,13 @@ class LiveNewsFragment : Fragment() {
         showProgressDialog()
         for (i in 0..10) {
             newsDataset.add(
-                NewsDataClass("This is dummy title of News. This is dummy title of News",
-                "This is a dummy new description for UI purpose. This is dummy title of News. This is dummy title of News",
-                "https://static.vecteezy.com/system/resources/previews/000/228/631/non_2x/vector-news-background-with-text-live-updates.jpg",
-                "24-04-2021")
+                NewsDataClass(
+                    "This is dummy title of News. This is dummy title of News",
+                    "This is a dummy new description for UI purpose. This is dummy title of News. This is dummy title of News",
+                    "https://static.vecteezy.com/system/resources/previews/000/228/631/non_2x/vector-news-background-with-text-live-updates.jpg",
+                    "24-04-2021",
+                    "Dummy Source"
+                )
             )
         }
         compactNewsList_RV.adapter!!.notifyDataSetChanged()
@@ -102,12 +107,19 @@ class LiveNewsFragment : Fragment() {
      */
     private fun getLiveNews() {
         showProgressDialog()
-        val call = ApiClient.getClient.getNews(getString(R.string.mediastacknews_access_key), getString(
-                    R.string.default_country_india), null, getString(R.string.default_language_english))
+        val call = ApiClient.getClient.getNews(
+            getString(R.string.mediastacknews_access_key), getString(
+                R.string.default_country_india
+            ), null, getString(R.string.default_language_english)
+        )
         call.enqueue(object : Callback<ResponseDataClass> {
             override fun onFailure(call: retrofit2.Call<ResponseDataClass>, t: Throwable) {
                 //Log.d(TAG, "Error is ${t.message}")
-                Toast.makeText(context, getString(R.string.live_news_fetching_error_msg), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    getString(R.string.live_news_fetching_error_msg),
+                    Toast.LENGTH_SHORT
+                ).show()
                 dismissProgressDialog()
             }
 
@@ -127,7 +139,7 @@ class LiveNewsFragment : Fragment() {
     /**
      * Show the progress dialog
      */
-    private fun showProgressDialog(){
+    private fun showProgressDialog() {
         progressDialog.show()
     }
 

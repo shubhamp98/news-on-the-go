@@ -10,5 +10,7 @@ data class NewsDataClass(
     @SerializedName("image")
     val newsThumbnailImageURL: String,
     @SerializedName("published_at")
-    val newsPublishedAt: String
+    val newsPublishedAt: String,
+    @SerializedName("source")
+    val newsSource: String
 )

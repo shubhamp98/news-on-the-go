@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.LiveNewsFragment">
+    tools:context=".fragment.DisplayLiveNewsFragment"
+    android:background="@color/light_gray">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/compactNewsList_RV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#E4E4E4" />
+        android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/searchNews_FAB"

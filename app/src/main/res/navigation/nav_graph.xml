@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/liveNewsFragment"
-        android:name="com.shubhampandey.newsonthego.fragment.LiveNewsFragment"
+        android:name="com.shubhampandey.newsonthego.fragment.DisplayLiveNewsFragment"
         android:label="fragment_live_news"
-        tools:layout="@layout/fragment_live_news">
+        tools:layout="@layout/fragment_display_live_news">
         <action
             android:id="@+id/action_liveNewsFragment_to_displaySearchedNewsFragment"
             app:destination="@id/searchNewsFragment" />
@@ -18,15 +18,50 @@
         android:id="@+id/searchNewsFragment"
         android:name="com.shubhampandey.newsonthego.fragment.SearchNewsFragment"
         android:label="fragment_display_searched_news"
-        tools:layout="@layout/fragment_display_search_news" />
+        tools:layout="@layout/fragment_display_search_news" >
+        <action
+            android:id="@+id/action_searchNewsFragment_to_displayFullNewsFragment"
+            app:destination="@id/displayFullNewsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newsCategoryFragment"
-        android:name="com.shubhampandey.newsonthego.fragment.NewsCategoryFragment"
+        android:name="com.shubhampandey.newsonthego.fragment.CategorySelectionFragment"
         android:label="fragment_news_category"
-        tools:layout="@layout/fragment_news_category" />
+        tools:layout="@layout/fragment_news_category">
+        <action
+            android:id="@+id/action_newsCategoryFragment_to_displaySingleCategoryNewsFragment"
+            app:destination="@id/displaySingleCategoryNewsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bookmarkedNewsFragment"
         android:name="com.shubhampandey.newsonthego.fragment.BookmarkedNewsFragment"
         android:label="fragment_bookmarked_news"
-        tools:layout="@layout/fragment_bookmarked_news" />
+        tools:layout="@layout/fragment_bookmarked_news" >
+        <action
+            android:id="@+id/action_bookmarkedNewsFragment_to_displayFullNewsFragment"
+            app:destination="@id/displayFullNewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displaySingleCategoryNewsFragment"
+        android:name="com.shubhampandey.newsonthego.fragment.DisplayCategoryNewsFragment"
+        android:label="fragment_display_single_category_news"
+        tools:layout="@layout/fragment_display_category_news" >
+        <argument
+            android:name="category_type"
+            app:argType="string"
+            android:defaultValue="general" />
+        <action
+            android:id="@+id/action_displaySingleCategoryNewsFragment_to_displayFullNewsFragment"
+            app:destination="@id/displayFullNewsFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.shubhampandey.newsonthego.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/displayFullNewsFragment"
+        android:name="com.shubhampandey.newsonthego.fragment.DisplayFullNewsFragment"
+        android:label="fragment_display_full_news"
+        tools:layout="@layout/fragment_display_full_news" />
 </navigation>
