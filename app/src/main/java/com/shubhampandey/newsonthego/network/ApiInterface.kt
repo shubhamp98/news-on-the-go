@@ -12,8 +12,12 @@ interface ApiInterface {
         // Eg. https://jsonplaceholder.typicode.com/posts?id=2
         @Query("access_key")
         accessKey: String,
+        @Query("categories")
+        category: String?,
         @Query("countries")
         country: String?,
+        @Query("keywords")
+        searchKeyword: String?,
         @Query("limit")
         fetchLimit: Int?,
         @Query("languages")

@@ -44,8 +44,8 @@ class DisplayLiveNewsFragment : Fragment() {
     private fun setupUI() {
         createProgressDialog()
         setupRecyclerView()
-//        getLiveNews()
-        getDemoLiveNews()
+        getLiveNews()
+//        getDemoLiveNews()
         setClickListeners()
     }
 
@@ -110,9 +110,13 @@ class DisplayLiveNewsFragment : Fragment() {
     private fun getLiveNews() {
         showProgressDialog()
         val call = ApiClient.getClient.getNews(
-            getString(R.string.mediastacknews_access_key), getString(
-                R.string.default_country_india
-            ), null, getString(R.string.default_language_english), getString(R.string.default_sort_order)
+            accessKey = getString(R.string.mediastacknews_access_key),
+            category = null,
+            country = getString(R.string.default_country_india),
+            searchKeyword = null,
+            fetchLimit = null,
+            language = getString(R.string.default_language_english),
+            sort = getString(R.string.default_sort_order)
         )
         call.enqueue(object : Callback<ResponseDataClass> {
             override fun onFailure(call: retrofit2.Call<ResponseDataClass>, t: Throwable) {

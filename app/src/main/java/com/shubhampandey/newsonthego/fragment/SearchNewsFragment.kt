@@ -8,12 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
+import com.shubhampandey.newsonthego.network.ApiClient
+import kotlinx.android.synthetic.main.fragment_display_category_news.*
 import kotlinx.android.synthetic.main.fragment_display_search_news.*
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchNewsFragment : Fragment() {
 
@@ -47,6 +54,44 @@ class SearchNewsFragment : Fragment() {
     }
 
     /**
+     * Fetch news by searched keywords by calling the news API
+     */
+    private fun getSearchedNews(searchedKeywords: String) {
+        showProgressDialog()
+        val call = ApiClient.getClient.getNews(
+            accessKey = getString(R.string.mediastacknews_access_key),
+            category = null,
+            country = getString(R.string.default_country_india),
+            searchKeyword = searchedKeywords,
+            fetchLimit = null,
+            language = getString(R.string.default_language_english),
+            sort = getString(R.string.default_sort_order)
+        )
+        call.enqueue(object : Callback<ResponseDataClass> {
+            override fun onFailure(call: retrofit2.Call<ResponseDataClass>, t: Throwable) {
+                //Log.d(TAG, "Error is ${t.message}")
+                Toast.makeText(
+                    context,
+                    getString(R.string.live_news_fetching_error_msg),
+                    Toast.LENGTH_SHORT
+                ).show()
+                dismissProgressDialog()
+            }
+
+            override fun onResponse(
+                call: retrofit2.Call<ResponseDataClass>,
+                response: Response<ResponseDataClass>
+            ) {
+                response.body()?.newsData?.let { newsDataset.addAll(it) }
+                searchNewsList_RV.adapter!!.notifyDataSetChanged()
+                dismissProgressDialog()
+                //Log.d(TAG, "Data is ${response.body()}")
+            }
+
+        })
+    }
+
+    /**
      * Add focus to Search view and
      * show the keyboard
      */
@@ -64,17 +109,28 @@ class SearchNewsFragment : Fragment() {
         searchNews_SV.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchNews_SV.clearFocus()
-                // Fetch the News
-                getDemoLiveNews()
-                // Make news view visible and hide others
-                updateUI()
-                return false // Returning false will hide the keyboard
+                if (query != null) { // Check if search query is not null
+                    // Fetch the News
+                    //getDemoLiveNews()
+                    getSearchedNews(query)
+                    // Make news view visible and hide others
+                    updateUI()
+                }
+                else {
+                    showEmptySearchError()
+                }
+                // Returning false will hide the keyboard
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
         })
+    }
+
+    private fun showEmptySearchError() {
+        Snackbar.make(requireContext(), requireView(), "Search query must need to be entered!", Snackbar.LENGTH_SHORT).show()
     }
 
     /**

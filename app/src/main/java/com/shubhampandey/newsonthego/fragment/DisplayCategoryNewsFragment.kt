@@ -12,8 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
+import com.shubhampandey.newsonthego.network.ApiClient
 import kotlinx.android.synthetic.main.fragment_display_category_news.*
-import kotlinx.android.synthetic.main.fragment_display_search_news.*
+import kotlinx.android.synthetic.main.fragment_display_live_news.*
+import retrofit2.Callback
+import retrofit2.Response
 
 class DisplayCategoryNewsFragment : Fragment() {
 
@@ -22,6 +26,7 @@ class DisplayCategoryNewsFragment : Fragment() {
     lateinit var progressDialog: ProgressDialog
     private var newsDataset = ArrayList<NewsDataClass>()
     private lateinit var customNewsAdapter: NewsAdapter
+    private lateinit var categoryType: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +39,17 @@ class DisplayCategoryNewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        retrieveCategoryType()
         setupUI()
-        getDemoLiveNews()
+        //getDemoLiveNews()
+        getCategoryWiseNews(categoryType)
+    }
+
+    /**
+     * Retrieve category type sent using Safe args
+     */
+    private fun retrieveCategoryType() {
+        categoryType = args.categoryType
     }
 
     private fun setupUI() {
@@ -48,17 +62,56 @@ class DisplayCategoryNewsFragment : Fragment() {
      * Update the UI for selected the category
      */
     private fun showSelectedCategoryInUI() {
-        val categoryType = args.categoryType
         displayCategoryType_TV.text = " " + categoryType.toUpperCase()
         when (categoryType) {
-            getString(R.string.news_category_general) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_blur_circular_24, 0, 0, 0)
-            getString(R.string.news_category_business) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_business_center_24, 0, 0, 0)
-            getString(R.string.news_category_entertainment) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_movie_24, 0, 0, 0)
-            getString(R.string.news_category_health) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_health_and_safety_24, 0, 0, 0)
-            getString(R.string.news_category_science) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_science_24, 0, 0, 0)
-            getString(R.string.news_category_sports) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_sports_cricket_24, 0, 0, 0)
-            getString(R.string.news_category_technology) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_computer_24, 0, 0, 0)
-            else -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_blur_circular_24, 0, 0, 0)
+            getString(R.string.news_category_general) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_blur_circular_24,
+                0,
+                0,
+                0
+            )
+            getString(R.string.news_category_business) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_business_center_24,
+                0,
+                0,
+                0
+            )
+            getString(R.string.news_category_entertainment) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_movie_24,
+                0,
+                0,
+                0
+            )
+            getString(R.string.news_category_health) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_health_and_safety_24,
+                0,
+                0,
+                0
+            )
+            getString(R.string.news_category_science) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_science_24,
+                0,
+                0,
+                0
+            )
+            getString(R.string.news_category_sports) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_sports_cricket_24,
+                0,
+                0,
+                0
+            )
+            getString(R.string.news_category_technology) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_computer_24,
+                0,
+                0,
+                0
+            )
+            else -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_blur_circular_24,
+                0,
+                0,
+                0
+            )
         }
     }
 
@@ -79,6 +132,44 @@ class DisplayCategoryNewsFragment : Fragment() {
         }
         displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
         dismissProgressDialog()
+    }
+
+    /**
+     * Fetch news category wise by calling the news API
+     */
+    private fun getCategoryWiseNews(categoryType: String) {
+        showProgressDialog()
+        val call = ApiClient.getClient.getNews(
+            accessKey = getString(R.string.mediastacknews_access_key),
+            category = categoryType,
+            country = getString(R.string.default_country_india),
+            searchKeyword = null,
+            fetchLimit = null,
+            language = getString(R.string.default_language_english),
+            sort = getString(R.string.default_sort_order)
+        )
+        call.enqueue(object : Callback<ResponseDataClass> {
+            override fun onFailure(call: retrofit2.Call<ResponseDataClass>, t: Throwable) {
+                //Log.d(TAG, "Error is ${t.message}")
+                Toast.makeText(
+                    context,
+                    getString(R.string.live_news_fetching_error_msg),
+                    Toast.LENGTH_SHORT
+                ).show()
+                dismissProgressDialog()
+            }
+
+            override fun onResponse(
+                call: retrofit2.Call<ResponseDataClass>,
+                response: Response<ResponseDataClass>
+            ) {
+                response.body()?.newsData?.let { newsDataset.addAll(it) }
+                displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
+                dismissProgressDialog()
+                //Log.d(TAG, "Data is ${response.body()}")
+            }
+
+        })
     }
 
     /**
@@ -107,7 +198,7 @@ class DisplayCategoryNewsFragment : Fragment() {
     /**
      * Show the progress dialog
      */
-    private fun showProgressDialog(){
+    private fun showProgressDialog() {
         progressDialog.show()
     }
 

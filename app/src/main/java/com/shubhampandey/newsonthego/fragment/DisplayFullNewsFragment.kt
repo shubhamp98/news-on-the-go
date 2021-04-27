@@ -100,6 +100,10 @@ class DisplayFullNewsFragment : Fragment() {
                 )
             )
         }
+        showNewsSavedSnackbar()
+    }
+
+    private fun showNewsSavedSnackbar() {
         Snackbar.make(requireContext(), requireView(), "News bookmarked successfully!", Snackbar.LENGTH_SHORT).show()
     }
 
