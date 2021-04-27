@@ -24,4 +24,5 @@
     <string name="news_category_sports">sports</string>
     <string name="news_category_health">health</string>
     <string name="news_category_technology">technology</string>
+    <string name="default_sort_order">published_desc</string>
 </resources>

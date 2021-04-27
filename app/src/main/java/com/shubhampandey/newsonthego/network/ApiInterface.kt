@@ -17,6 +17,8 @@ interface ApiInterface {
         @Query("limit")
         fetchLimit: Int?,
         @Query("languages")
-        language: String?
+        language: String?,
+        @Query("sort")
+        sort: String?
     ): retrofit2.Call<ResponseDataClass>
 }
