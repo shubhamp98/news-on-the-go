@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_gray"
     tools:context=".fragment.BookmarkedNewsFragment">
 
     <androidx.cardview.widget.CardView
@@ -16,10 +18,18 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/unit_10dp"
+            android:layout_margin="@dimen/unit_10dp"
             android:text="Bookmarked News"
             android:textColor="@color/black"
-            android:textSize="24sp"/>
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_size_20sp"
+            app:drawableStartCompat="@drawable/ic_baseline_star_40"
+            android:drawablePadding="@dimen/unit_10dp"/>
     </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bookmarkedNewsList_RV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -14,4 +14,13 @@
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
+    <style name="full_news_more_action_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">@dimen/unit_10dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:padding">@dimen/unit_10dp</item>
+        <item name="android:background">@drawable/bg_dark_purple</item>
+    </style>
+
 </resources>

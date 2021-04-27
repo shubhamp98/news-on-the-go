@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.CategorySelectionFragment">
 
     <LinearLayout
@@ -14,17 +14,20 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/unit_20dp"
+            android:layout_margin="@dimen/unit_10dp"
             app:cardCornerRadius="@dimen/unit_10dp"
-           app:cardElevation="@dimen/unit_20dp">
+            app:cardElevation="@dimen/unit_20dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/unit_10dp"
-                android:text="Category"
+                android:layout_margin="@dimen/unit_10dp"
+                android:drawablePadding="@dimen/unit_10dp"
+                android:gravity="center_vertical"
+                android:text="Select Category"
                 android:textColor="@color/black"
-                android:textSize="24sp"/>
+                android:textSize="@dimen/text_size_20sp"
+                app:drawableStartCompat="@drawable/ic_baseline_category_40" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
@@ -66,8 +69,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/unit_10dp"
                     android:layout_marginTop="@dimen/unit_20dp"
-                    app:tint="@color/white"
-                    android:src="@drawable/ic_baseline_business_center_24" />
+                    android:src="@drawable/ic_baseline_business_center_24"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"

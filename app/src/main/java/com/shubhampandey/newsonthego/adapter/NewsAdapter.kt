@@ -60,7 +60,9 @@ class NewsAdapter(private val context: Context, private val dataSet: List<NewsDa
                 "newsTitle" to dataSet[position].newsTitle,
                 "newsDescription" to dataSet[position].newsDescription,
                 "newsImgURL" to dataSet[position].newsThumbnailImageURL,
-                "newsPublishedAt" to dataSet[position].newsPublishedAt
+                "newsPublishedAt" to dataSet[position].newsPublishedAt,
+                "newsSource" to dataSet[position].newsSource,
+                "url" to dataSet[position].newsURL
             )
             // Navigate to next data
             it.findNavController().navigate(R.id.displayFullNewsFragment, bundle)
