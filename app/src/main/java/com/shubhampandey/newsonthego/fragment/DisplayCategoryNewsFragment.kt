@@ -17,10 +17,10 @@ import kotlinx.android.synthetic.main.fragment_display_search_news.*
 
 class DisplayCategoryNewsFragment : Fragment() {
 
-    val args: DisplayCategoryNewsFragmentArgs by navArgs()
+    private val args: DisplayCategoryNewsFragmentArgs by navArgs()
     private val TAG = DisplayCategoryNewsFragment::class.java.simpleName
     lateinit var progressDialog: ProgressDialog
-    var newsDataset = ArrayList<NewsDataClass>()
+    private var newsDataset = ArrayList<NewsDataClass>()
     private lateinit var customNewsAdapter: NewsAdapter
 
     override fun onCreateView(
@@ -41,10 +41,25 @@ class DisplayCategoryNewsFragment : Fragment() {
     private fun setupUI() {
         createProgressDialog()
         setupRecyclerView()
+        showSelectedCategoryInUI()
+    }
 
-        // Update the UI for selected the category
+    /**
+     * Update the UI for selected the category
+     */
+    private fun showSelectedCategoryInUI() {
         val categoryType = args.categoryType
-        displayCategoryType_TV.text = "Category: ${categoryType.toUpperCase()}"
+        displayCategoryType_TV.text = " " + categoryType.toUpperCase()
+        when (categoryType) {
+            getString(R.string.news_category_general) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_blur_circular_24, 0, 0, 0)
+            getString(R.string.news_category_business) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_business_center_24, 0, 0, 0)
+            getString(R.string.news_category_entertainment) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_movie_24, 0, 0, 0)
+            getString(R.string.news_category_health) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_health_and_safety_24, 0, 0, 0)
+            getString(R.string.news_category_science) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_science_24, 0, 0, 0)
+            getString(R.string.news_category_sports) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_sports_cricket_24, 0, 0, 0)
+            getString(R.string.news_category_technology) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_computer_24, 0, 0, 0)
+            else -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_blur_circular_24, 0, 0, 0)
+        }
     }
 
     private fun getDemoLiveNews() {

@@ -43,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/unit_10dp"
                     android:layout_marginTop="@dimen/unit_20dp"
-                    android:src="@drawable/ic_baseline_blur_circular_24" />
+                    android:src="@drawable/ic_baseline_blur_circular_24"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -65,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/unit_10dp"
                     android:layout_marginTop="@dimen/unit_20dp"
+                    app:tint="@color/white"
                     android:src="@drawable/ic_baseline_business_center_24" />
 
                 <TextView
@@ -95,7 +97,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/unit_10dp"
                     android:layout_marginTop="@dimen/unit_20dp"
-                    android:src="@drawable/ic_baseline_movie_24" />
+                    android:src="@drawable/ic_baseline_movie_24"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,7 +122,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/unit_10dp"
                     android:layout_marginTop="@dimen/unit_20dp"
-                    android:src="@drawable/ic_baseline_health_and_safety_24" />
+                    android:src="@drawable/ic_baseline_health_and_safety_24"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -149,7 +153,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/unit_20dp"
                     android:layout_marginTop="@dimen/unit_20dp"
-                    android:src="@drawable/ic_baseline_science_24" />
+                    android:src="@drawable/ic_baseline_science_24"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,7 +176,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/unit_20dp"
                     android:layout_marginTop="@dimen/unit_20dp"
-                    android:src="@drawable/ic_baseline_sports_cricket_24" />
+                    android:src="@drawable/ic_baseline_sports_cricket_24"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -202,7 +208,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/unit_20dp"
                     android:layout_marginTop="@dimen/unit_20dp"
-                    android:src="@drawable/ic_baseline_computer_24" />
+                    android:src="@drawable/ic_baseline_computer_24"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="wrap_content"
