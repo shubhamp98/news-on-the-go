@@ -2,15 +2,19 @@ package com.shubhampandey.newsonthego.fragment
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.database.RoomDatabaseBuilder
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_bookmarked_news.*
 import kotlinx.android.synthetic.main.fragment_display_category_news.*
 import java.util.concurrent.Executors
@@ -34,27 +38,27 @@ class BookmarkedNewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupUI()
-        getLiveNews()
     }
 
-    private fun getLiveNews() {
-        val roomDatabaseBuilder = context?.let { RoomDatabaseBuilder.getInstance(it) }
-        Executors.newSingleThreadExecutor().execute {
-            // get data from Database
-            val newsList = roomDatabaseBuilder?.newsDao()?.getAllNews()!!
-            bookmarkedNewsList_RV.apply {
-                // Stuff that updates the UI
-                activity?.runOnUiThread {
-                    customNewsAdapter =
-                        NewsAdapter(
-                            context,
-                            newsList as ArrayList<NewsDataClass>
-                        )
-                    bookmarkedNewsList_RV.adapter = customNewsAdapter
-                    customNewsAdapter.notifyDataSetChanged()
-                }
+    override fun onResume() {
+        super.onResume()
+        getSavedNews()
+    }
+
+    private fun getSavedNews() {
+        showProgressDialog()
+        val application = requireActivity().application
+        val newsViewModel = ViewModelProvider(this).get(NewsViewModel(application)::class.java)
+        newsViewModel.getNewsFromDB()
+        newsViewModel.bookmarkedNewsLiveData.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Log.i(TAG, "Data is $it")
+                newsDataset.addAll(it)
+                bookmarkedNewsList_RV.adapter!!.notifyDataSetChanged()
             }
-        }
+            dismissProgressDialog()
+        })
+
     }
 
     private fun setupUI() {

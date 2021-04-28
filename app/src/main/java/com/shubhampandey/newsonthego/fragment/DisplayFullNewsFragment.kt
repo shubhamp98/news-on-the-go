@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.database.RoomDatabaseBuilder
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_display_full_news.*
 import java.util.concurrent.Executors
 
@@ -21,7 +23,7 @@ class DisplayFullNewsFragment : Fragment() {
     private var newsImageURL: String? = null
     private var newsPublishedAt: String? = null
     private var newsSource: String? = null
-    private var newsURL: String?= null
+    private var newsURL: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,25 +88,29 @@ class DisplayFullNewsFragment : Fragment() {
      * Save news item to local database
      */
     private fun saveNewsInDB() {
-        val database = context?.let { RoomDatabaseBuilder.getInstance(it) }
-        Executors.newSingleThreadExecutor().execute {
-            database?.newsDao()?.insertNewsDetails(
-                NewsDataClass(
-                    null,
-                    newsTitle.toString(),
-                    newsDescription.toString(),
-                    newsImageURL.toString(),
-                    newsPublishedAt.toString(),
-                    newsSource.toString(),
-                    newsURL.toString()
-                )
+        val application = requireActivity().application
+        val newsViewModel = ViewModelProvider(this).get(NewsViewModel(application)::class.java)
+        newsViewModel.saveNewsToDB(
+            NewsDataClass(
+                null,
+                newsTitle.toString(),
+                newsDescription.toString(),
+                newsImageURL.toString(),
+                newsPublishedAt.toString(),
+                newsSource.toString(),
+                newsURL.toString()
             )
-        }
+        )
         showNewsSavedSnackbar()
     }
 
     private fun showNewsSavedSnackbar() {
-        Snackbar.make(requireContext(), requireView(), "News bookmarked successfully!", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            requireContext(),
+            requireView(),
+            "News bookmarked successfully!",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     /**

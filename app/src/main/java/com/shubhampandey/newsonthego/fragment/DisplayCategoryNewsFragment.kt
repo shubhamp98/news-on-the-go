@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shubhampandey.newsonthego.R
@@ -14,6 +16,7 @@ import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
 import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
 import com.shubhampandey.newsonthego.network.ApiClient
+import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_display_category_news.*
 import kotlinx.android.synthetic.main.fragment_display_live_news.*
 import retrofit2.Callback
@@ -42,6 +45,10 @@ class DisplayCategoryNewsFragment : Fragment() {
         retrieveCategoryType()
         setupUI()
         //getDemoLiveNews()
+    }
+
+    override fun onResume() {
+        super.onResume()
         getCategoryWiseNews(categoryType)
     }
 
@@ -139,35 +146,23 @@ class DisplayCategoryNewsFragment : Fragment() {
      */
     private fun getCategoryWiseNews(categoryType: String) {
         showProgressDialog()
-        val call = ApiClient.getClient.getNews(
+        val newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+        newsViewModel.getNewsFromAPI(
             accessKey = getString(R.string.mediastacknews_access_key),
             category = categoryType,
             country = getString(R.string.default_country_india),
             searchKeyword = null,
             fetchLimit = null,
             language = getString(R.string.default_language_english),
-            sort = getString(R.string.default_sort_order)
-        )
-        call.enqueue(object : Callback<ResponseDataClass> {
-            override fun onFailure(call: retrofit2.Call<ResponseDataClass>, t: Throwable) {
-                //Log.d(TAG, "Error is ${t.message}")
-                Toast.makeText(
-                    context,
-                    getString(R.string.live_news_fetching_error_msg),
-                    Toast.LENGTH_SHORT
-                ).show()
-                dismissProgressDialog()
+            sort = getString(R.string.default_sort_order
+            ))
+        newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
+            //Log.i(TAG, "Data is ${it.newsData}")
+            it?.let {
+                newsDataset.addAll(it.newsData)
             }
-
-            override fun onResponse(
-                call: retrofit2.Call<ResponseDataClass>,
-                response: Response<ResponseDataClass>
-            ) {
-                response.body()?.newsData?.let { newsDataset.addAll(it) }
-                displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
-                dismissProgressDialog()
-                //Log.d(TAG, "Data is ${response.body()}")
-            }
+            displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
+            dismissProgressDialog()
 
         })
     }
