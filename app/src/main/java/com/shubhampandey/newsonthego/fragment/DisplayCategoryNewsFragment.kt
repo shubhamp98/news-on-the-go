@@ -2,6 +2,7 @@ package com.shubhampandey.newsonthego.fragment
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -158,10 +159,15 @@ class DisplayCategoryNewsFragment : Fragment() {
             ))
         newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
             //Log.i(TAG, "Data is ${it.newsData}")
-            it?.let {
+            if (it != null) {
+                newsDataset.clear()
                 newsDataset.addAll(it.newsData)
+                displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
             }
-            displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
+            else {
+                // Handle your error here
+                Log.i(TAG, "No Data Found")
+            }
             dismissProgressDialog()
 
         })

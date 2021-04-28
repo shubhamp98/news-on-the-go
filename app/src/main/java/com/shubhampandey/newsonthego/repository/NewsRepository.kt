@@ -40,7 +40,7 @@ class NewsRepository(context: Context) {
         )
         call.enqueue(object : Callback<ResponseDataClass> {
             override fun onFailure(call: retrofit2.Call<ResponseDataClass>, t: Throwable) {
-                Log.d(TAG, "Error is ${t.message}")
+                //Log.d(TAG, "Error is ${t.message}")
                 newsResponsesFromNetworkLiveData.postValue(null)
             }
 
@@ -49,7 +49,12 @@ class NewsRepository(context: Context) {
                 response: Response<ResponseDataClass>
             ) {
                 //Log.d(TAG, "Data is ${response.body()}")
-                newsResponsesFromNetworkLiveData.postValue(response.body())
+                if (response.isSuccessful) {
+                    newsResponsesFromNetworkLiveData.postValue(response.body())
+                } else {
+                    newsResponsesFromNetworkLiveData.postValue(null)
+
+                }
             }
         })
     }

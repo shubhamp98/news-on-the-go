@@ -44,7 +44,8 @@ class DisplayLiveNewsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getLiveNews()
+//        getLiveNews()
+        getDemoLiveNews()
     }
 
     /**
@@ -53,7 +54,6 @@ class DisplayLiveNewsFragment : Fragment() {
     private fun setupUI() {
         createProgressDialog()
         setupRecyclerView()
-//        getDemoLiveNews()
         setClickListeners()
     }
 
@@ -129,11 +129,15 @@ class DisplayLiveNewsFragment : Fragment() {
             ))
             newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
                 //Log.i(TAG, "Data is ${it.newsData}")
-                it?.let {
+                if (it != null) {
                     newsDataset.clear()
                     newsDataset.addAll(it.newsData)
+                    compactNewsList_RV.adapter!!.notifyDataSetChanged()
                 }
-                compactNewsList_RV.adapter!!.notifyDataSetChanged()
+                else {
+                    // Handle your error here
+                    Log.i(TAG, "No Data Found")
+                }
                 dismissProgressDialog()
 
         })

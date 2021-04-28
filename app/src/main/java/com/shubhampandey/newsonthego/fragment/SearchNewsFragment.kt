@@ -1,5 +1,6 @@
 package com.shubhampandey.newsonthego.fragment
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -78,10 +80,14 @@ class SearchNewsFragment : Fragment() {
             ))
         newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
             //Log.i(TAG, "Data is ${it?.newsData}")
-            it?.let {
-                newsDataset.clear() // clear previous data if stored any
+            if (it != null) {
+                newsDataset.clear()
                 newsDataset.addAll(it.newsData)
                 searchNewsList_RV.adapter!!.notifyDataSetChanged()
+            }
+            else {
+                // Handle your error here
+                Log.i(TAG, "No Data Found")
             }
             dismissProgressDialog()
         })
@@ -97,6 +103,19 @@ class SearchNewsFragment : Fragment() {
         val imm: InputMethodManager = context
             ?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(searchNews_SV, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        hideKeyboard()
+    }
+    /**
+     * Hide the keyboard when view is destroyed
+     */
+    private fun hideKeyboard() {
+        val imm: InputMethodManager = context
+            ?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
     /**

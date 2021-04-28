@@ -7,76 +7,59 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.view.menu.MenuBuilder
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var drawerToggle: ActionBarDrawerToggle
     private val TAG = MainActivity::class.java.simpleName
+    lateinit var navController: NavController
+    lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setupUI()
-        setClickListener()
+        navController = findNavController(R.id.nav_host_fragment)
+        setupNavigationDrawer()
     }
 
     /**
-     * Attach the listener on Navigation items
+     * Setup the Drawer
      */
-    private fun setClickListener() {
-        navigationView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.home_menu -> navigateToHomeDestination()
-                R.id.category_menu -> navigateToCategoryDestination()
-                R.id.bookmarked_menu -> navigateToBookmarkedDestination()
-
-            }
-            drawerLayout.closeDrawers()
-            // returning true will make only currently selected menu item as checked
-            true
-        }
+    private fun setupNavigationDrawer() {
+        // Setup the Navigation Drawer
+        appBarConfiguration = AppBarConfiguration(
+            // Add fragments in which you want
+            // to show the Drawer icon else up arrow
+            // will show except in the mentioned fragment
+            setOf(
+                R.id.liveNewsFragment
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(
+            findNavController(R.id.nav_host_fragment),
+            appBarConfiguration
+        )
+        // Attach it with Nav Controller
+        // So that which drawer menu we click
+        // on it will open that
+        navigationView.setupWithNavController(navController)
     }
 
-    private fun navigateToHomeDestination() {
-        findNavController(R.id.nav_host_fragment).navigate(R.id.liveNewsFragment)
-    }
-
-    private fun navigateToBookmarkedDestination() {
-        findNavController(R.id.nav_host_fragment).navigate(R.id.bookmarkedNewsFragment)
-    }
-
-    private fun navigateToCategoryDestination() {
-        findNavController(R.id.nav_host_fragment).navigate(R.id.newsCategoryFragment)
-    }
-
-    /**
-     * Setup the UI elements
-     * Support the custom actionbar/toolbar
-     */
-    private fun setupUI() {
-        setSupportActionBar(toolbar_main)
-
-        // It ties DrawerLayout with Toolbar/ActionBar.
-        drawerToggle =
-            ActionBarDrawerToggle(
-                this, drawerLayout, toolbar_main,
-                R.string.open, R.string.close
-            )
-
-        // Change drawer arrow color
-        drawerToggle.drawerArrowDrawable.color = resources.getColor(R.color.white)
-
-        // pass the Open and Close toggle for the drawer layout listener
-        // to toggle the button
-        drawerLayout.addDrawerListener(drawerToggle)
-        drawerToggle.syncState()
+    //open drawer when drawer icon clicked and back button pressed
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration)
     }
 }

@@ -5,18 +5,18 @@
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/home_menu"
+            android:id="@+id/liveNewsFragment"
             android:checked="true"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/home_menu" />
 
         <item
-            android:id="@+id/category_menu"
+            android:id="@+id/newsCategoryFragment"
             android:icon="@drawable/ic_baseline_category_24"
             android:title="@string/category_menu" />
 
         <item
-            android:id="@+id/bookmarked_menu"
+            android:id="@+id/bookmarkedNewsFragment"
             android:icon="@drawable/ic_baseline_bookmarks_24"
             android:title="@string/bookmarked_menu" />
     </group>
