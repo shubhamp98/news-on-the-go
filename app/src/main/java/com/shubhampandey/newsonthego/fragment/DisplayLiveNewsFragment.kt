@@ -43,8 +43,8 @@ class DisplayLiveNewsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        getLiveNews()
-        getDemoLiveNews()
+        getLiveNews()
+        //getDemoLiveNews()
     }
 
     /**

@@ -140,8 +140,8 @@ class SearchNewsFragment : Fragment() {
                     showAnimatedLoader()
                     searchNewsInfo_TV.visibility = View.GONE
                     // Fetch the News
-                    getDemoLiveNews()
-//                    getSearchedNews(query)
+//                    getDemoLiveNews()
+                    getSearchedNews(query)
                 } else {
                     showEmptySearchError()
                 }
