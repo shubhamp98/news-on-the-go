@@ -56,7 +56,6 @@ class SearchNewsFragment : Fragment() {
     private fun setupUI() {
         addFocusAndOpenKeyBoard()
         setupListener()
-        createProgressDialog()
         setupRecyclerView()
     }
 
@@ -67,7 +66,6 @@ class SearchNewsFragment : Fragment() {
      * Fetch live news by calling the news API
      */
     private fun getSearchedNews(searchedKeywords: String) {
-        showProgressDialog()
         val newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         newsViewModel.getNewsFromAPI(
             accessKey = getString(R.string.mediastacknews_access_key),
@@ -76,20 +74,32 @@ class SearchNewsFragment : Fragment() {
             searchKeyword = searchedKeywords,
             fetchLimit = null,
             language = getString(R.string.default_language_english),
-            sort = getString(R.string.default_sort_order
-            ))
+            sort = getString(
+                R.string.default_sort_order
+            )
+        )
         newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
-            //Log.i(TAG, "Data is ${it?.newsData}")
+            Log.i(TAG, "Data is ${it?.newsData}")
             if (it != null) {
-                newsDataset.clear()
-                newsDataset.addAll(it.newsData)
-                searchNewsList_RV.adapter!!.notifyDataSetChanged()
-            }
-            else {
-                // Handle your error here
+                if (it.newsData.isNotEmpty()) {
+                    newsDataset.clear()
+                    newsDataset.addAll(it.newsData)
+                    searchNewsList_RV.adapter!!.notifyDataSetChanged()
+                    // Make news view visible and hide others
+                    updateUI()
+                }
+                else {
+                    // Data received is empty
+                    hideAnimatedLoader()
+                    searchNewsList_RV.visibility = View.GONE
+                    searchNewsInfo_TV.text = "No news found for your searched term..."
+                    searchNewsInfo_TV.visibility = View.VISIBLE
+                }
+
+            } else {
+                // Handle your errors here
                 Log.i(TAG, "No Data Found")
             }
-            dismissProgressDialog()
         })
 
     }
@@ -109,6 +119,7 @@ class SearchNewsFragment : Fragment() {
         super.onPause()
         hideKeyboard()
     }
+
     /**
      * Hide the keyboard when view is destroyed
      */
@@ -126,13 +137,12 @@ class SearchNewsFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchNews_SV.clearFocus()
                 if (query != null) { // Check if search query is not null
+                    showAnimatedLoader()
+                    searchNewsInfo_TV.visibility = View.GONE
                     // Fetch the News
-                    //getDemoLiveNews()
-                    getSearchedNews(query)
-                    // Make news view visible and hide others
-                    updateUI()
-                }
-                else {
+                    getDemoLiveNews()
+//                    getSearchedNews(query)
+                } else {
                     showEmptySearchError()
                 }
                 // Returning false will hide the keyboard
@@ -145,8 +155,29 @@ class SearchNewsFragment : Fragment() {
         })
     }
 
+    /**
+     * Make recyclerview visible
+     */
+    private fun showList() {
+        searchNewsList_RV.visibility = View.VISIBLE
+    }
+
+
+    private fun showAnimatedLoader() {
+        searchNews_LAV.visibility = View.VISIBLE
+    }
+
+    private fun hideAnimatedLoader() {
+        searchNews_LAV.visibility = View.GONE
+    }
+
     private fun showEmptySearchError() {
-        Snackbar.make(requireContext(), requireView(), "Search query must need to be entered!", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            requireContext(),
+            requireView(),
+            "Search query must need to be entered!",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     /**
@@ -154,12 +185,11 @@ class SearchNewsFragment : Fragment() {
      * after fetching and hide other views
      */
     private fun updateUI() {
-        searchNewsInfo_TV.visibility = View.GONE
-        searchNewsList_RV.visibility = View.VISIBLE
+        hideAnimatedLoader()
+        showList()
     }
 
     private fun getDemoLiveNews() {
-        showProgressDialog()
         for (i in 0..10) {
             newsDataset.add(
                 NewsDataClass(
@@ -174,18 +204,8 @@ class SearchNewsFragment : Fragment() {
             )
         }
         searchNewsList_RV.adapter!!.notifyDataSetChanged()
-        dismissProgressDialog()
-    }
-
-    /**
-     * Create progress dialog to update the user
-     * that news is getting loaded
-     */
-    private fun createProgressDialog() {
-        progressDialog = ProgressDialog(context)
-        progressDialog.setTitle("Loading")
-        progressDialog.setMessage("Please wait while we are fetching news...")
-        progressDialog.setCancelable(false)
+        showList()
+        hideAnimatedLoader()
     }
 
     /**
@@ -198,19 +218,5 @@ class SearchNewsFragment : Fragment() {
         customNewsAdapter = context?.let { NewsAdapter(it, newsDataset) }!!
         // attach adapter
         searchNewsList_RV.adapter = customNewsAdapter
-    }
-
-    /**
-     * Show the progress dialog
-     */
-    private fun showProgressDialog(){
-        progressDialog.show()
-    }
-
-    /**
-     * Hide the progress dialog
-     */
-    private fun dismissProgressDialog() {
-        progressDialog.dismiss()
     }
 }

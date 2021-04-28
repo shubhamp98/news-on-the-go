@@ -52,7 +52,8 @@ class BookmarkedNewsFragment : Fragment() {
         newsViewModel.getNewsFromDB()
         newsViewModel.bookmarkedNewsLiveData.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Log.i(TAG, "Data is $it")
+                //Log.i(TAG, "Data is $it")
+                newsDataset.clear()
                 newsDataset.addAll(it)
                 bookmarkedNewsList_RV.adapter!!.notifyDataSetChanged()
             }

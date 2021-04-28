@@ -36,4 +36,8 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     fun saveNewsToDB(news: NewsDataClass) {
         newsRepository.insertNewsToDB(news)
     }
+
+    fun deleteNewsFromDB(news: NewsDataClass) {
+        newsRepository.removeNewsFromDB(news)
+    }
 }

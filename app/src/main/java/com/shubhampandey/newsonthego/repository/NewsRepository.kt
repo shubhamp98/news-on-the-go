@@ -67,7 +67,7 @@ class NewsRepository(context: Context) {
             val newsList = dbBuilder.newsDao().getAllNews()
             Log.d(TAG, "Data is $newsList")
             // get data from Database
-            newsResponsesFromDBLiveData.postValue(newsList.value)
+            newsResponsesFromDBLiveData.postValue(newsList)
         }
     }
 
@@ -87,6 +87,12 @@ class NewsRepository(context: Context) {
                     news.newsURL
                 )
             )
+        }
+    }
+
+    fun removeNewsFromDB(news: NewsDataClass) {
+        Executors.newSingleThreadExecutor().execute {
+            dbBuilder.newsDao().deleteNewsDetails(news)
         }
     }
 }

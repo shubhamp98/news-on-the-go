@@ -24,7 +24,6 @@ import retrofit2.Response
 class DisplayLiveNewsFragment : Fragment() {
 
     private val TAG = DisplayLiveNewsFragment::class.java.simpleName
-    lateinit var progressDialog: ProgressDialog
     var newsDataset = ArrayList<NewsDataClass>()
     private lateinit var customNewsAdapter: NewsAdapter
 
@@ -52,7 +51,7 @@ class DisplayLiveNewsFragment : Fragment() {
      * Call functions to setup the UI
      */
     private fun setupUI() {
-        createProgressDialog()
+        showAnimatedLoader()
         setupRecyclerView()
         setClickListeners()
     }
@@ -71,7 +70,7 @@ class DisplayLiveNewsFragment : Fragment() {
     }
 
     private fun getDemoLiveNews() {
-        showProgressDialog()
+        showAnimatedLoader()
         for (i in 0..10) {
             newsDataset.add(
                 NewsDataClass(
@@ -86,18 +85,8 @@ class DisplayLiveNewsFragment : Fragment() {
             )
         }
         compactNewsList_RV.adapter!!.notifyDataSetChanged()
-        dismissProgressDialog()
-    }
-
-    /**
-     * Create progress dialog to update the user
-     * that news is getting loaded
-     */
-    private fun createProgressDialog() {
-        progressDialog = ProgressDialog(context)
-        progressDialog.setTitle("Loading")
-        progressDialog.setMessage("Please wait while we are fetching news...")
-        progressDialog.setCancelable(false)
+        hideAnimatedLoader()
+        showList()
     }
 
     /**
@@ -116,7 +105,6 @@ class DisplayLiveNewsFragment : Fragment() {
      * Fetch live news by calling the news API
      */
     private fun getLiveNews() {
-        showProgressDialog()
         val newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         newsViewModel.getNewsFromAPI(
             accessKey = getString(R.string.mediastacknews_access_key),
@@ -138,22 +126,24 @@ class DisplayLiveNewsFragment : Fragment() {
                     // Handle your error here
                     Log.i(TAG, "No Data Found")
                 }
-                dismissProgressDialog()
+                hideAnimatedLoader()
+                showList()
 
         })
     }
 
     /**
-     * Show the progress dialog
+     * Make recyclerview visible
      */
-    private fun showProgressDialog() {
-        progressDialog.show()
+    private fun showList() {
+        compactNewsList_RV.visibility = View.VISIBLE
     }
 
-    /**
-     * Hide the progress dialog
-     */
-    private fun dismissProgressDialog() {
-        progressDialog.dismiss()
+    private fun showAnimatedLoader() {
+        liveNews_LAV.visibility = View.VISIBLE
+    }
+
+    private fun hideAnimatedLoader(){
+        liveNews_LAV.visibility = View.GONE
     }
 }

@@ -5,12 +5,24 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.DisplayLiveNewsFragment"
-    android:background="@color/light_gray">
+    >
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/liveNews_LAV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:lottie_rawRes="@raw/loading_animation"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/compactNewsList_RV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:background="@color/light_gray"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/searchNews_FAB"

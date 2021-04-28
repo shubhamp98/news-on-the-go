@@ -57,6 +57,7 @@ class NewsAdapter(private val context: Context, private val dataSet: List<NewsDa
         holder.itemView.setOnClickListener {
             // Prepare data to send it to next destination
             val bundle = bundleOf(
+                "newsID" to dataSet[position].id,
                 "newsTitle" to dataSet[position].newsTitle,
                 "newsDescription" to dataSet[position].newsDescription,
                 "newsImgURL" to dataSet[position].newsThumbnailImageURL,
