@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".fragment.DisplayLiveNewsFragment">
 
     <include
@@ -16,11 +17,15 @@
         layout="@layout/loading"
         android:visibility="gone"/>
 
+    <include
+        android:id="@+id/no_info_layout"
+        layout="@layout/no_information"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/compactNewsList_RV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_gray"
         android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

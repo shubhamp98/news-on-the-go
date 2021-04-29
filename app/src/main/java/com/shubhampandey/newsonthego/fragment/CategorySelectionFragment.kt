@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.MyApplication
 import com.shubhampandey.newsonthego.R
+import kotlinx.android.synthetic.main.fragment_display_live_news.*
 import kotlinx.android.synthetic.main.fragment_news_category.*
+import kotlinx.android.synthetic.main.no_internet.*
 
 class CategorySelectionFragment : Fragment() {
 
@@ -23,12 +26,37 @@ class CategorySelectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(checkForNetwork())
-            setListeners()
-        else {
-            categorySelection_LL.visibility = View.INVISIBLE
-            categorySelection_LAV.visibility = View.VISIBLE
+        if (hasNetworkConnectivity()) {
+            tryConnectivity()
+        } else {
+            categorySelection_LL.visibility = View.GONE
+            showInternetConnectivityError()
+            category_frag_no_connection_Layout.visibility = View.VISIBLE
+            noConnectionRetry_Btn.setOnClickListener {
+                tryConnectivity()
+            }
         }
+    }
+
+    private fun tryConnectivity() {
+        if (hasNetworkConnectivity()) {
+            categorySelection_LL.visibility = View.VISIBLE
+            setListeners()
+            category_frag_no_connection_Layout.visibility = View.GONE
+        } else {
+            categorySelection_LL.visibility = View.GONE
+            showInternetConnectivityError()
+        }
+    }
+
+    /**
+     * Check for Internet connection
+     */
+    private fun hasNetworkConnectivity() =
+        MyApplication().hasNetwork()
+
+    private fun showInternetConnectivityError() {
+        Snackbar.make(requireView(), "Internet connectivity failed", Snackbar.LENGTH_SHORT).show()
     }
 
     /**

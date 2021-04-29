@@ -43,8 +43,7 @@ class DisplayLiveNewsFragment : Fragment() {
 
         if (hasNetworkConnectivity()) {
             tryConnectivity()
-        }
-        else {
+        } else {
             showInternetConnectivityError()
             hideList()
             no_connection_Layout.visibility = View.VISIBLE
@@ -58,12 +57,11 @@ class DisplayLiveNewsFragment : Fragment() {
     private fun tryConnectivity() {
         if (hasNetworkConnectivity()) {
             setupUI()
-//            getLiveNews()
-            getDemoLiveNews()
+            getLiveNews()
+//            getDemoLiveNews()
             no_connection_Layout.visibility = View.GONE
             searchNews_FAB.visibility = View.VISIBLE
-        }
-        else {
+        } else {
             showInternetConnectivityError()
         }
     }
@@ -151,17 +149,35 @@ class DisplayLiveNewsFragment : Fragment() {
         newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
             //Log.i(TAG, "Data is ${it.newsData}")
             if (it != null) {
-                newsDataset.clear()
-                newsDataset.addAll(it.newsData)
-                compactNewsList_RV.adapter!!.notifyDataSetChanged()
+                if (it.newsData.isNotEmpty()) {
+                    no_info_layout.visibility = View.GONE
+                    newsDataset.clear()
+                    newsDataset.addAll(it.newsData)
+                    compactNewsList_RV.adapter!!.notifyDataSetChanged()
+                    showList()
+                } else {
+                    // Data received is empty
+                    hideList()
+                    no_info_layout.visibility = View.VISIBLE
+                }
             } else {
-                // Handle your error here
-                Log.i(TAG, "No Data Found")
+                // Handle your errors here
+                hideList()
+                showError()
+                no_info_layout.visibility = View.VISIBLE
+                searchNews_FAB.visibility = View.INVISIBLE
             }
             hideAnimatedLoader()
-            showList()
-
         })
+    }
+
+    private fun showError() {
+        Snackbar.make(
+            requireContext(),
+            requireView(),
+            "Something went wrong",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     /**

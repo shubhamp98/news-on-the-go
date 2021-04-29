@@ -24,6 +24,16 @@
             android:textColor="@color/black"/>
     </androidx.cardview.widget.CardView>
 
+    <include
+        android:id="@+id/display_category_news_loading"
+        layout="@layout/loading"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/display_category_no_info_layout"
+        layout="@layout/no_information"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/displayCategoryNews_RV"
         android:layout_width="match_parent"

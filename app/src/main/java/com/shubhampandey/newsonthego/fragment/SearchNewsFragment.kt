@@ -111,7 +111,7 @@ class SearchNewsFragment : Fragment() {
             )
         )
         newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
-            Log.i(TAG, "Data is ${it?.newsData}")
+            //Log.i(TAG, "Data is ${it?.newsData}")
             if (it != null) {
                 if (it.newsData.isNotEmpty()) {
                     search_frag_no_info_layout.visibility = View.GONE

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
@@ -27,7 +28,6 @@ class DisplayCategoryNewsFragment : Fragment() {
 
     private val args: DisplayCategoryNewsFragmentArgs by navArgs()
     private val TAG = DisplayCategoryNewsFragment::class.java.simpleName
-    lateinit var progressDialog: ProgressDialog
     private var newsDataset = ArrayList<NewsDataClass>()
     private lateinit var customNewsAdapter: NewsAdapter
     private lateinit var categoryType: String
@@ -61,7 +61,6 @@ class DisplayCategoryNewsFragment : Fragment() {
     }
 
     private fun setupUI() {
-        createProgressDialog()
         setupRecyclerView()
         showSelectedCategoryInUI()
     }
@@ -124,7 +123,7 @@ class DisplayCategoryNewsFragment : Fragment() {
     }
 
     private fun getDemoLiveNews() {
-        showProgressDialog()
+        showAnimatedLoader()
         for (i in 0..10) {
             newsDataset.add(
                 NewsDataClass(
@@ -139,14 +138,14 @@ class DisplayCategoryNewsFragment : Fragment() {
             )
         }
         displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
-        dismissProgressDialog()
+        hideAnimatedLoader()
     }
 
     /**
      * Fetch news category wise by calling the news API
      */
     private fun getCategoryWiseNews(categoryType: String) {
-        showProgressDialog()
+        showAnimatedLoader()
         val newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         newsViewModel.getNewsFromAPI(
             accessKey = getString(R.string.mediastacknews_access_key),
@@ -168,20 +167,39 @@ class DisplayCategoryNewsFragment : Fragment() {
                 // Handle your error here
                 Log.i(TAG, "No Data Found")
             }
-            dismissProgressDialog()
+            hideAnimatedLoader()
 
+            //Log.i(TAG, "Data is ${it.newsData}")
+            if (it != null) {
+                if (it.newsData.isNotEmpty()) {
+                    newsDataset.clear()
+                    newsDataset.addAll(it.newsData)
+                    displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
+                    display_category_no_info_layout.visibility = View.GONE
+                    showList()
+                } else {
+                    // Data received is empty
+                    hideList()
+                    display_category_no_info_layout.visibility = View.VISIBLE
+                }
+            } else {
+                // Handle your errors here
+                Log.i(TAG, "Something went wrong!")
+                hideList()
+                display_category_no_info_layout.visibility = View.VISIBLE
+                showError()
+            }
+            hideAnimatedLoader()
         })
     }
 
-    /**
-     * Create progress dialog to update the user
-     * that news is getting loaded
-     */
-    private fun createProgressDialog() {
-        progressDialog = ProgressDialog(context)
-        progressDialog.setTitle("Loading")
-        progressDialog.setMessage("Please wait while we are fetching news...")
-        progressDialog.setCancelable(false)
+    private fun showError() {
+        Snackbar.make(
+            requireContext(),
+            requireView(),
+            "Something went wrong",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     /**
@@ -197,16 +215,24 @@ class DisplayCategoryNewsFragment : Fragment() {
     }
 
     /**
-     * Show the progress dialog
+     * Make recyclerview visible
      */
-    private fun showProgressDialog() {
-        progressDialog.show()
+    private fun showList() {
+        displayCategoryNews_RV.visibility = View.VISIBLE
     }
 
     /**
-     * Hide the progress dialog
+     * Make recyclerview invisible
      */
-    private fun dismissProgressDialog() {
-        progressDialog.dismiss()
+    private fun hideList() {
+        displayCategoryNews_RV.visibility = View.INVISIBLE
+    }
+
+    private fun showAnimatedLoader() {
+        display_category_news_loading.visibility = View.VISIBLE
+    }
+
+    private fun hideAnimatedLoader() {
+        display_category_news_loading.visibility = View.GONE
     }
 }
