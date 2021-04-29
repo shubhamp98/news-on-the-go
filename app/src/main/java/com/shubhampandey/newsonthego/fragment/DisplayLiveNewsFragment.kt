@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.shubhampandey.newsonthego.MyApplication
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
@@ -18,6 +20,7 @@ import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_display_live_news.*
 import kotlinx.android.synthetic.main.fragment_display_search_news.*
+import kotlinx.android.synthetic.main.no_internet.*
 import retrofit2.Callback
 import retrofit2.Response
 
@@ -38,23 +41,50 @@ class DisplayLiveNewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupUI()
+        if (hasNetworkConnectivity()) {
+            tryConnectivity()
+        }
+        else {
+            showInternetConnectivityError()
+            hideList()
+            no_connection_Layout.visibility = View.VISIBLE
+            searchNews_FAB.visibility = View.INVISIBLE
+            noConnectionRetry_Btn.setOnClickListener {
+                tryConnectivity()
+            }
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-//        getLiveNews()
-        getDemoLiveNews()
+    private fun tryConnectivity() {
+        if (hasNetworkConnectivity()) {
+            setupUI()
+            getLiveNews()
+//            getDemoLiveNews()
+            no_connection_Layout.visibility = View.GONE
+            searchNews_FAB.visibility = View.VISIBLE
+        }
+        else {
+            showInternetConnectivityError()
+        }
+    }
+
+    private fun showInternetConnectivityError() {
+        Snackbar.make(requireView(), "Internet connectivity failed", Snackbar.LENGTH_SHORT).show()
     }
 
     /**
      * Call functions to setup the UI
      */
     private fun setupUI() {
-        showAnimatedLoader()
         setupRecyclerView()
         setClickListeners()
     }
+
+    /**
+     * Check for Internet connection
+     */
+    private fun hasNetworkConnectivity() =
+        MyApplication().hasNetwork()
 
     private fun setClickListeners() {
         searchNews_FAB.setOnClickListener {
@@ -105,6 +135,7 @@ class DisplayLiveNewsFragment : Fragment() {
      * Fetch live news by calling the news API
      */
     private fun getLiveNews() {
+        showAnimatedLoader()
         val newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         newsViewModel.getNewsFromAPI(
             accessKey = getString(R.string.mediastacknews_access_key),
@@ -113,21 +144,22 @@ class DisplayLiveNewsFragment : Fragment() {
             searchKeyword = null,
             fetchLimit = null,
             language = getString(R.string.default_language_english),
-            sort = getString(R.string.default_sort_order
-            ))
-            newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
-                //Log.i(TAG, "Data is ${it.newsData}")
-                if (it != null) {
-                    newsDataset.clear()
-                    newsDataset.addAll(it.newsData)
-                    compactNewsList_RV.adapter!!.notifyDataSetChanged()
-                }
-                else {
-                    // Handle your error here
-                    Log.i(TAG, "No Data Found")
-                }
-                hideAnimatedLoader()
-                showList()
+            sort = getString(
+                R.string.default_sort_order
+            )
+        )
+        newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
+            //Log.i(TAG, "Data is ${it.newsData}")
+            if (it != null) {
+                newsDataset.clear()
+                newsDataset.addAll(it.newsData)
+                compactNewsList_RV.adapter!!.notifyDataSetChanged()
+            } else {
+                // Handle your error here
+                Log.i(TAG, "No Data Found")
+            }
+            hideAnimatedLoader()
+            showList()
 
         })
     }
@@ -139,11 +171,18 @@ class DisplayLiveNewsFragment : Fragment() {
         compactNewsList_RV.visibility = View.VISIBLE
     }
 
-    private fun showAnimatedLoader() {
-        liveNews_LAV.visibility = View.VISIBLE
+    /**
+     * Make recyclerview invisible
+     */
+    private fun hideList() {
+        compactNewsList_RV.visibility = View.INVISIBLE
     }
 
-    private fun hideAnimatedLoader(){
-        liveNews_LAV.visibility = View.GONE
+    private fun showAnimatedLoader() {
+        loading_layout.visibility = View.VISIBLE
+    }
+
+    private fun hideAnimatedLoader() {
+        loading_layout.visibility = View.GONE
     }
 }
