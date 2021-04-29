@@ -101,6 +101,7 @@ class DisplayLiveNewsFragment : Fragment() {
         compactNewsList_RV.adapter = customNewsAdapter
     }
 
+
     /**
      * Fetch live news by calling the news API
      */
