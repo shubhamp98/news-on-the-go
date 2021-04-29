@@ -43,8 +43,8 @@ class DisplayLiveNewsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getLiveNews()
-        //getDemoLiveNews()
+//        getLiveNews()
+        getDemoLiveNews()
     }
 
     /**
@@ -100,7 +100,6 @@ class DisplayLiveNewsFragment : Fragment() {
         // attach adapter
         compactNewsList_RV.adapter = customNewsAdapter
     }
-
 
     /**
      * Fetch live news by calling the news API
