@@ -114,6 +114,7 @@ class SearchNewsFragment : Fragment() {
             Log.i(TAG, "Data is ${it?.newsData}")
             if (it != null) {
                 if (it.newsData.isNotEmpty()) {
+                    search_frag_no_info_layout.visibility = View.GONE
                     newsDataset.clear()
                     newsDataset.addAll(it.newsData)
                     searchNewsList_RV.adapter!!.notifyDataSetChanged()
@@ -124,14 +125,27 @@ class SearchNewsFragment : Fragment() {
                     // Data received is empty
                     hideAnimatedLoader()
                     searchNewsList_RV.visibility = View.GONE
+                    search_frag_no_info_layout.visibility = View.VISIBLE
                 }
 
             } else {
                 // Handle your errors here
-                Log.i(TAG, "No Data Found")
+                showError()
+                hideAnimatedLoader()
+                searchNewsList_RV.visibility = View.GONE
+                search_frag_no_info_layout.visibility = View.VISIBLE
             }
         })
 
+    }
+
+    private fun showError() {
+        Snackbar.make(
+            requireContext(),
+            requireView(),
+            "Something went wrong",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     /**
@@ -167,12 +181,11 @@ class SearchNewsFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchNews_SV.clearFocus()
                 if (query != null) { // Check if search query is not null
+                    Log.i(TAG, "Search query: $query")
                     showAnimatedLoader()
                     // Fetch the News
 //                    getDemoLiveNews()
                     getSearchedNews(query)
-                } else {
-                    showEmptySearchError()
                 }
                 // Returning false will hide the keyboard
                 return false
@@ -204,15 +217,6 @@ class SearchNewsFragment : Fragment() {
 
     private fun hideAnimatedLoader() {
         search_frag_loading_layout.visibility = View.GONE
-    }
-
-    private fun showEmptySearchError() {
-        Snackbar.make(
-            requireContext(),
-            requireView(),
-            "Search query must need to be entered!",
-            Snackbar.LENGTH_SHORT
-        ).show()
     }
 
     /**
