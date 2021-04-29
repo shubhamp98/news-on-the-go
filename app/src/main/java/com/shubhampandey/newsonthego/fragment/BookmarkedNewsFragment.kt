@@ -17,12 +17,12 @@ import com.shubhampandey.newsonthego.dataclass.NewsDataClass
 import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_bookmarked_news.*
 import kotlinx.android.synthetic.main.fragment_display_category_news.*
+import kotlinx.android.synthetic.main.fragment_display_search_news.*
 import java.util.concurrent.Executors
 
 class BookmarkedNewsFragment : Fragment() {
 
     private val TAG = BookmarkedNewsFragment::class.java.simpleName
-    lateinit var progressDialog: ProgressDialog
     private var newsDataset = ArrayList<NewsDataClass>()
     private lateinit var customNewsAdapter: NewsAdapter
 
@@ -40,13 +40,8 @@ class BookmarkedNewsFragment : Fragment() {
         setupUI()
     }
 
-    override fun onResume() {
-        super.onResume()
-        getSavedNews()
-    }
-
     private fun getSavedNews() {
-        showProgressDialog()
+        showAnimatedLoader()
         val application = requireActivity().application
         val newsViewModel = ViewModelProvider(this).get(NewsViewModel(application)::class.java)
         newsViewModel.getNewsFromDB()
@@ -57,25 +52,14 @@ class BookmarkedNewsFragment : Fragment() {
                 newsDataset.addAll(it)
                 bookmarkedNewsList_RV.adapter!!.notifyDataSetChanged()
             }
-            dismissProgressDialog()
+            hideAnimatedLoader()
         })
 
     }
 
     private fun setupUI() {
-        createProgressDialog()
         setupRecyclerView()
-    }
-
-    /**
-     * Create progress dialog to update the user
-     * that news is getting loaded
-     */
-    private fun createProgressDialog() {
-        progressDialog = ProgressDialog(context)
-        progressDialog.setTitle("Loading")
-        progressDialog.setMessage("Please wait while we are fetching news...")
-        progressDialog.setCancelable(false)
+        getSavedNews()
     }
 
     /**
@@ -90,17 +74,11 @@ class BookmarkedNewsFragment : Fragment() {
         bookmarkedNewsList_RV.adapter = customNewsAdapter
     }
 
-    /**
-     * Show the progress dialog
-     */
-    private fun showProgressDialog(){
-        progressDialog.show()
+    private fun showAnimatedLoader() {
+        bookmark_frag_loading_layout.visibility = View.VISIBLE
     }
 
-    /**
-     * Hide the progress dialog
-     */
-    private fun dismissProgressDialog() {
-        progressDialog.dismiss()
+    private fun hideAnimatedLoader() {
+        bookmark_frag_loading_layout.visibility = View.GONE
     }
 }
