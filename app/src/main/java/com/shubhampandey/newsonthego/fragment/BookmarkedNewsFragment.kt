@@ -46,11 +46,18 @@ class BookmarkedNewsFragment : Fragment() {
         val newsViewModel = ViewModelProvider(this).get(NewsViewModel(application)::class.java)
         newsViewModel.getNewsFromDB()
         newsViewModel.bookmarkedNewsLiveData.observe(viewLifecycleOwner, Observer {
-            it?.let {
+            if (it != null && it.isNotEmpty()) {
+                // There is bookmarked news found
                 //Log.i(TAG, "Data is $it")
                 newsDataset.clear()
                 newsDataset.addAll(it)
                 bookmarkedNewsList_RV.adapter!!.notifyDataSetChanged()
+            } else {
+                // no bookmarked news found
+                //Log.i(TAG, "No bookmarked news found...")
+                bookmark_frag_no_info_layout.visibility = View.VISIBLE
+                bookmarkedNewsList_RV.visibility = View.GONE
+
             }
             hideAnimatedLoader()
         })

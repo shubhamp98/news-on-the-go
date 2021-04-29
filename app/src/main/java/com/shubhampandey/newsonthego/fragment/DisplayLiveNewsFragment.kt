@@ -58,8 +58,8 @@ class DisplayLiveNewsFragment : Fragment() {
     private fun tryConnectivity() {
         if (hasNetworkConnectivity()) {
             setupUI()
-            getLiveNews()
-//            getDemoLiveNews()
+//            getLiveNews()
+            getDemoLiveNews()
             no_connection_Layout.visibility = View.GONE
             searchNews_FAB.visibility = View.VISIBLE
         }
