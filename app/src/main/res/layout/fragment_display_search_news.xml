@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".fragment.SearchNewsFragment">
 
     <SearchView
@@ -17,37 +18,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/searchNews_LAV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading_animation" />
+    <include
+        android:id="@+id/search_frag_no_connection_Layout"
+        layout="@layout/no_internet"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/search_frag_loading_layout"
+        layout="@layout/loading"
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchNewsList_RV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="50dp"
-        android:background="#E4E4E4"
         app:layout_constraintTop_toBottomOf="@+id/searchNews_SV"
         android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/searchNewsInfo_TV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Search for your favorite news and it will be available here..."
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchNews_SV"
-        android:gravity="center"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

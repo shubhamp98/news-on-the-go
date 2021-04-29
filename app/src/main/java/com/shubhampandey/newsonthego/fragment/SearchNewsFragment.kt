@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.shubhampandey.newsonthego.MyApplication
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
@@ -26,13 +27,13 @@ import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_display_category_news.*
 import kotlinx.android.synthetic.main.fragment_display_live_news.*
 import kotlinx.android.synthetic.main.fragment_display_search_news.*
+import kotlinx.android.synthetic.main.no_internet.*
 import retrofit2.Callback
 import retrofit2.Response
 
 class SearchNewsFragment : Fragment() {
 
     private val TAG = SearchNewsFragment::class.java.simpleName
-    lateinit var progressDialog: ProgressDialog
     var newsDataset = ArrayList<NewsDataClass>()
     private lateinit var customNewsAdapter: NewsAdapter
 
@@ -47,8 +48,39 @@ class SearchNewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupUI()
+        if (hasNetworkConnectivity()) {
+            tryConnectivity()
+        }
+        else {
+            showInternetConnectivityError()
+            hideList()
+            search_frag_no_connection_Layout.visibility = View.VISIBLE
+            noConnectionRetry_Btn.setOnClickListener {
+                tryConnectivity()
+            }
+        }
     }
+
+
+    private fun tryConnectivity() {
+        if (hasNetworkConnectivity()) {
+            setupUI()
+            search_frag_no_connection_Layout.visibility = View.GONE
+        }
+        else {
+            showInternetConnectivityError()
+        }
+    }
+
+    private fun showInternetConnectivityError() {
+        Snackbar.make(requireView(), "Internet connectivity failed", Snackbar.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Check for Internet connection
+     */
+    private fun hasNetworkConnectivity() =
+        MyApplication().hasNetwork()
 
     /**
      * Call functions to setup the UI
@@ -92,8 +124,6 @@ class SearchNewsFragment : Fragment() {
                     // Data received is empty
                     hideAnimatedLoader()
                     searchNewsList_RV.visibility = View.GONE
-                    searchNewsInfo_TV.text = "No news found for your searched term..."
-                    searchNewsInfo_TV.visibility = View.VISIBLE
                 }
 
             } else {
@@ -138,7 +168,6 @@ class SearchNewsFragment : Fragment() {
                 searchNews_SV.clearFocus()
                 if (query != null) { // Check if search query is not null
                     showAnimatedLoader()
-                    searchNewsInfo_TV.visibility = View.GONE
                     // Fetch the News
 //                    getDemoLiveNews()
                     getSearchedNews(query)
@@ -162,13 +191,19 @@ class SearchNewsFragment : Fragment() {
         searchNewsList_RV.visibility = View.VISIBLE
     }
 
+    /**
+     * Make recyclerview invisible
+     */
+    private fun hideList() {
+        searchNewsList_RV.visibility = View.INVISIBLE
+    }
 
     private fun showAnimatedLoader() {
-        searchNews_LAV.visibility = View.VISIBLE
+        search_frag_loading_layout.visibility = View.VISIBLE
     }
 
     private fun hideAnimatedLoader() {
-        searchNews_LAV.visibility = View.GONE
+        search_frag_loading_layout.visibility = View.GONE
     }
 
     private fun showEmptySearchError() {
