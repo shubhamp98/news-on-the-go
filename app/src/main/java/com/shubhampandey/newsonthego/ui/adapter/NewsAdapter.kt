@@ -21,10 +21,11 @@ class NewsAdapter(private val context: Context, private val dataSet: List<NewsDa
      * (custom ViewHolder).
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val compactNewsTitleTextView: TextView = view.findViewById(R.id.compactNewsTitle_TV)
-        val compactNewsPublishedAtTextView: TextView = view.findViewById(R.id.compactNewsPublishedAt_TV)
-        val compactNewsImageView: ImageView = view.findViewById(R.id.compactNewsImage_IV)
-        val compactNewsSourceTextView: TextView = view.findViewById(R.id.compactNewsSource_TV)
+        val newsTitle: TextView = view.findViewById(R.id.compactNewsTitle_TV)
+        val newsPublishedAt: TextView =
+            view.findViewById(R.id.compactNewsPublishedAt_TV)
+        val newsImage: ImageView = view.findViewById(R.id.compactNewsImage_IV)
+        val newsSource: TextView = view.findViewById(R.id.compactNewsSource_TV)
     }
 
     // Create new views (invoked by the layout manager)
@@ -32,9 +33,9 @@ class NewsAdapter(private val context: Context, private val dataSet: List<NewsDa
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-
         // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_news_compact, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_news_compact, parent, false)
         return ViewHolder(view)
     }
 
@@ -43,15 +44,32 @@ class NewsAdapter(private val context: Context, private val dataSet: List<NewsDa
     // Replace the contents of a view (invoked by the layout manager)
     // Used to replace/update views at a specific position
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.compactNewsTitleTextView.text = dataSet[position].newsTitle
-        holder.compactNewsPublishedAtTextView.text = " " + dataSet[position].newsPublishedAt
-        holder.compactNewsPublishedAtTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_date_range_20, 0, 0, 0)
-        holder.compactNewsSourceTextView.text = " " + dataSet[position].newsSource
-        holder.compactNewsSourceTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_source_20, 0, 0, 0)
+        bindItems(holder, position)
+    }
+
+    private fun bindItems(holder: ViewHolder, position: Int) {
+        holder.newsTitle.text = dataSet[position].newsTitle
+        holder.newsPublishedAt.text = dataSet[position].newsPublishedAt
+        holder.newsPublishedAt.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            R.drawable.icon_date_range,
+            0,
+            0,
+            0
+        )
+        holder.newsPublishedAt.compoundDrawablePadding = 8
+
+        holder.newsSource.text = dataSet[position].newsSource
+        holder.newsSource.setCompoundDrawablesRelativeWithIntrinsicBounds(
+            R.drawable.icon_source,
+            0,
+            0,
+            0
+        )
+        holder.newsSource.compoundDrawablePadding = 8
 
         val newsImgURL = dataSet[position].newsThumbnailImageURL
         Glide.with(context).load(newsImgURL).placeholder(R.drawable.live_news_image)
-            .into(holder.compactNewsImageView)
+            .into(holder.newsImage)
 
         // Attach the click listener to each item
         holder.itemView.setOnClickListener {

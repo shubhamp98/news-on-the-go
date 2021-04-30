@@ -6,4 +6,5 @@
     <dimen name="text_size_20sp">20sp</dimen>
     <dimen name="unit_16dp">16dp</dimen>
     <dimen name="text_size_24sp">24sp</dimen>
+    <dimen name="unit_50dp">50dp</dimen>
 </resources>

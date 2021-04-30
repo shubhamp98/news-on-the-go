@@ -46,10 +46,10 @@
                     android:layout_margin="@dimen/unit_10dp"
                     android:drawablePadding="@dimen/unit_10dp"
                     android:gravity="center_vertical"
-                    android:text="Select Category"
+                    android:text="@string/select_category"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_20sp"
-                    app:drawableStartCompat="@drawable/ic_baseline_category_40" />
+                    app:drawableStartCompat="@drawable/icon_category_40dp" />
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/unit_10dp"
                         android:layout_marginTop="@dimen/unit_20dp"
-                        android:src="@drawable/ic_baseline_blur_circular_24"
+                        android:src="@drawable/icon_blur_circular"
                         app:tint="@color/white" />
 
                     <TextView
@@ -77,7 +77,7 @@
                         android:layout_marginStart="@dimen/unit_10dp"
                         android:layout_marginTop="@dimen/unit_20dp"
                         android:layout_marginBottom="@dimen/unit_20dp"
-                        android:text="General \nNews"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>
@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/unit_10dp"
                         android:layout_marginTop="@dimen/unit_20dp"
-                        android:src="@drawable/ic_baseline_business_center_24"
+                        android:src="@drawable/icon_business"
                         app:tint="@color/white" />
 
                     <TextView
@@ -100,7 +100,7 @@
                         android:layout_marginStart="@dimen/unit_10dp"
                         android:layout_marginTop="@dimen/unit_20dp"
                         android:layout_marginBottom="@dimen/unit_20dp"
-                        android:text="Business \nNews"
+                        android:text="@string/business"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>
@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/unit_10dp"
                         android:layout_marginTop="@dimen/unit_20dp"
-                        android:src="@drawable/ic_baseline_movie_24"
+                        android:src="@drawable/icon_movie"
                         app:tint="@color/white" />
 
                     <TextView
@@ -131,7 +131,7 @@
                         android:layout_marginStart="@dimen/unit_10dp"
                         android:layout_marginTop="@dimen/unit_20dp"
                         android:layout_marginBottom="@dimen/unit_20dp"
-                        android:text="Entertainment News"
+                        android:text="@string/entertainment"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
 
@@ -147,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/unit_10dp"
                         android:layout_marginTop="@dimen/unit_20dp"
-                        android:src="@drawable/ic_baseline_health_and_safety_24"
+                        android:src="@drawable/icon_health_and_safety"
                         app:tint="@color/white" />
 
                     <TextView
@@ -156,7 +156,7 @@
                         android:layout_marginStart="@dimen/unit_10dp"
                         android:layout_marginTop="@dimen/unit_20dp"
                         android:layout_marginBottom="@dimen/unit_20dp"
-                        android:text="Health \nNews"
+                        android:text="@string/health"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>
@@ -178,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/unit_20dp"
                         android:layout_marginTop="@dimen/unit_20dp"
-                        android:src="@drawable/ic_baseline_science_24"
+                        android:src="@drawable/icon_science"
                         app:tint="@color/white" />
 
                     <TextView
@@ -187,7 +187,7 @@
                         android:layout_marginStart="@dimen/unit_20dp"
                         android:layout_marginTop="@dimen/unit_20dp"
                         android:layout_marginBottom="@dimen/unit_20dp"
-                        android:text="Science \nNews"
+                        android:text="@string/science"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>
@@ -201,7 +201,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/unit_20dp"
                         android:layout_marginTop="@dimen/unit_20dp"
-                        android:src="@drawable/ic_baseline_sports_cricket_24"
+                        android:src="@drawable/icon_sports_cricket"
                         app:tint="@color/white" />
 
                     <TextView
@@ -210,7 +210,7 @@
                         android:layout_marginStart="@dimen/unit_20dp"
                         android:layout_marginTop="@dimen/unit_20dp"
                         android:layout_marginBottom="@dimen/unit_20dp"
-                        android:text="Sports \nNews"
+                        android:text="@string/sports"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>
@@ -233,7 +233,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/unit_20dp"
                         android:layout_marginTop="@dimen/unit_20dp"
-                        android:src="@drawable/ic_baseline_computer_24"
+                        android:src="@drawable/icon_computer"
                         app:tint="@color/white" />
 
                     <TextView
@@ -242,7 +242,7 @@
                         android:layout_marginStart="@dimen/unit_20dp"
                         android:layout_marginTop="@dimen/unit_20dp"
                         android:layout_marginBottom="@dimen/unit_20dp"
-                        android:text="Technology \nNews"
+                        android:text="@string/technology"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>

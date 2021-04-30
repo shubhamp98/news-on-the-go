@@ -55,14 +55,13 @@ class DisplayFullNewsFragment : Fragment() {
         newsURL = arguments?.getString("url")
     }
 
-
     private fun setListener() {
         addToBookMarkOutLine_IB.setOnClickListener {
             // If news Id is 0 then data is coming
             // from Network as API is not returning newsId
-            // and we using Default value from dataclass
+            // and we are using Default value from dataclass
             if (newsId == 0) {
-                addToBookMarkOutLine_IB.setImageResource(R.drawable.ic_baseline_star_40)
+                addToBookMarkOutLine_IB.setImageResource(R.drawable.icon_star_filled)
                 saveNewsInDB()
             }
             // Data is from localDB, we have rowID/newsID
@@ -77,6 +76,9 @@ class DisplayFullNewsFragment : Fragment() {
 
     }
 
+    /**
+     * Remove news from room database
+     */
     private fun removeNewsFromDB(newsId: Int?) {
         val application: Application = requireActivity().application
         val newsViewModel = ViewModelProvider(this).get(NewsViewModel(application)::class.java)
@@ -103,7 +105,7 @@ class DisplayFullNewsFragment : Fragment() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
             // (Optional) Here we're setting the title of the content
-            putExtra(Intent.EXTRA_TITLE, "Get News On The Go!")
+            putExtra(Intent.EXTRA_TITLE, getString(R.string.app_name))
             putExtra(
                 Intent.EXTRA_TEXT,
                 "Hey,\n\nLook at this news.\n\nNews source: $newsURL"
@@ -164,11 +166,11 @@ class DisplayFullNewsFragment : Fragment() {
         // from Network as API is not returning newsId
         // and we using Default value from dataclass
         if (newsId == 0) {
-            addToBookMarkOutLine_IB.setImageResource(R.drawable.ic_baseline_star_border_40)
+            addToBookMarkOutLine_IB.setImageResource(R.drawable.icon_star_border)
         }
         // Data is from localDB, we have rowID/newsID
         else {
-            addToBookMarkOutLine_IB.setImageResource(R.drawable.ic_baseline_star_40)
+            addToBookMarkOutLine_IB.setImageResource(R.drawable.icon_star_filled)
         }
     }
 }

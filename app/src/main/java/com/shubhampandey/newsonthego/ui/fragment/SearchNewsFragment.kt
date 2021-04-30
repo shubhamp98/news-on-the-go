@@ -41,8 +41,7 @@ class SearchNewsFragment : Fragment() {
 
         if (hasNetworkConnectivity()) {
             tryConnectivity()
-        }
-        else {
+        } else {
             showInternetConnectivityError()
             hideList()
             search_frag_no_connection_Layout.visibility = View.VISIBLE
@@ -52,18 +51,24 @@ class SearchNewsFragment : Fragment() {
         }
     }
 
+    /**
+     * Check connectivity with network and do the work
+     */
     private fun tryConnectivity() {
         if (hasNetworkConnectivity()) {
             setupUI()
             search_frag_no_connection_Layout.visibility = View.GONE
-        }
-        else {
+        } else {
             showInternetConnectivityError()
         }
     }
 
     private fun showInternetConnectivityError() {
-        Snackbar.make(requireView(), "Internet connectivity failed", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            requireView(),
+            getString(R.string.internet_connectivity_error),
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     /**
@@ -110,14 +115,12 @@ class SearchNewsFragment : Fragment() {
                     searchNewsList_RV.adapter!!.notifyDataSetChanged()
                     // Make news view visible and hide others
                     updateUI()
-                }
-                else {
+                } else {
                     // Data received is empty
                     hideAnimatedLoader()
                     searchNewsList_RV.visibility = View.GONE
                     search_frag_no_info_layout.visibility = View.VISIBLE
                 }
-
             } else {
                 // Handle your errors here
                 showError()
@@ -133,7 +136,7 @@ class SearchNewsFragment : Fragment() {
         Snackbar.make(
             requireContext(),
             requireView(),
-            "Something went wrong",
+            getString(R.string.error_message),
             Snackbar.LENGTH_SHORT
         ).show()
     }
@@ -155,7 +158,7 @@ class SearchNewsFragment : Fragment() {
     }
 
     /**
-     * Hide the keyboard when view is destroyed
+     * Hide the keyboard
      */
     private fun hideKeyboard() {
         val imm: InputMethodManager = context
@@ -218,6 +221,10 @@ class SearchNewsFragment : Fragment() {
         showList()
     }
 
+    /**
+     * Function to generate dummy news to avoid
+     * API quota limit exceeding
+     */
     private fun getDemoLiveNews() {
         for (i in 0..10) {
             newsDataset.add(

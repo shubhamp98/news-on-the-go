@@ -14,6 +14,7 @@
             android:id="@+id/fullNewsImg_IV"
             android:layout_width="match_parent"
             android:layout_height="240dp"
+            android:contentDescription="@string/news_image"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,10 +36,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/unit_10dp"
-                android:text="News title here..."
-                android:textStyle="bold"
+                android:text="@string/news_title_here"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_20sp" />
+                android:textSize="@dimen/text_size_20sp"
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -53,18 +54,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
+                    style="@style/single_news_category_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="More Actions"
-                    android:focusable="false"
                     android:clickable="false"
+                    android:focusable="false"
                     android:gravity="center"
-                    android:textColor="@color/white"
-                    style="@style/single_news_category_style"/>
+                    android:text="@string/more_actions"
+                    android:textColor="@color/white" />
 
                 <ImageButton
                     android:id="@+id/addToBookMarkOutLine_IB"
@@ -72,15 +73,17 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/unit_20dp"
                     android:background="@color/white"
-                    android:src="@drawable/ic_baseline_star_border_40" />
+                    android:contentDescription="@string/add_to_bookmark"
+                    android:src="@drawable/icon_star_border" />
 
                 <ImageButton
-                    android:background="@color/white"
                     android:id="@+id/shareNews_IB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/unit_20dp"
-                    android:src="@drawable/ic_baseline_share_40" />
+                    android:background="@color/white"
+                    android:contentDescription="@string/share"
+                    android:src="@drawable/icon_share" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -102,10 +105,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/unit_20dp"
-                android:text="News description here..."
+                android:text="@string/news_description_here"
                 android:textColor="@color/black" />
         </androidx.cardview.widget.CardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

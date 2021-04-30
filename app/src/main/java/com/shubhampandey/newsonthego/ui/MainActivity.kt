@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Setup the Drawer
+     * Setup the Navigation Drawer
      */
     private fun setupNavigationDrawer() {
         // Setup the Navigation Drawer

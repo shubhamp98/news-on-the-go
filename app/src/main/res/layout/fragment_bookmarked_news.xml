@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/light_gray"
+    android:orientation="vertical"
     tools:context=".ui.fragment.BookmarkedNewsFragment">
 
     <androidx.cardview.widget.CardView
@@ -19,28 +19,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/unit_10dp"
-            android:text="Bookmarked News"
-            android:textColor="@color/black"
+            android:drawablePadding="@dimen/unit_10dp"
             android:gravity="center_vertical"
+            android:text="@string/bookmarked_news"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_size_20sp"
-            app:drawableStartCompat="@drawable/ic_baseline_star_40"
-            android:drawablePadding="@dimen/unit_10dp"/>
+            app:drawableStartCompat="@drawable/icon_star_filled" />
     </androidx.cardview.widget.CardView>
 
     <include
         android:id="@+id/bookmark_frag_loading_layout"
-        layout="@layout/loading"
-        android:visibility="gone"/>
+        layout="@layout/loading_layout"
+        android:visibility="gone" />
 
     <include
         android:id="@+id/bookmark_frag_no_info_layout"
         layout="@layout/no_information"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookmarkedNewsList_RV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"/>
-
+        android:visibility="visible" />
 </LinearLayout>

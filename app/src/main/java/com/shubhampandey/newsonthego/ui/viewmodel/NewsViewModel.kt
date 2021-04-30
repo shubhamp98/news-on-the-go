@@ -16,6 +16,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         newsRepository.newsResponsesFromNetworkLiveData
     val bookmarkedNewsLiveData = newsRepository.newsResponsesFromDBLiveData
 
+    /**
+     * Get news from API/Network
+     */
     fun getNewsFromAPI(
         accessKey: String, category: String?, country: String, searchKeyword: String?,
         fetchLimit: Int?, language: String, sort: String

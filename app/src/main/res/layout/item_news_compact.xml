@@ -51,12 +51,14 @@
             android:id="@+id/compactNewsSource_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/unit_10dp"
             android:layout_marginTop="@dimen/unit_10dp"
-            android:maxLines="1"
-            android:maxLength="23"
             android:ellipsize="end"
-            android:text="Source"
+            android:maxLength="23"
+            android:maxLines="1"
+            android:paddingStart="@dimen/unit_10dp"
+            android:text="@string/source"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/compactNewsPublishedAt_TV"
             app:layout_constraintTop_toBottomOf="@+id/compactNewsPublishedAt_TV" />
     </androidx.constraintlayout.widget.ConstraintLayout>

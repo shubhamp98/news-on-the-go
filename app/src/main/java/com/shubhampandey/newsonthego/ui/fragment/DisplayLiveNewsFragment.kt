@@ -47,11 +47,14 @@ class DisplayLiveNewsFragment : Fragment() {
         }
     }
 
+    /**
+     * Check connectivity with network and do the work
+     */
     private fun tryConnectivity() {
         if (hasNetworkConnectivity()) {
             setupUI()
             getLiveNews()
-//            getDemoLiveNews()
+            //getDemoLiveNews()
             no_connection_Layout.visibility = View.GONE
             searchNews_FAB.visibility = View.VISIBLE
         } else {
@@ -60,7 +63,7 @@ class DisplayLiveNewsFragment : Fragment() {
     }
 
     private fun showInternetConnectivityError() {
-        Snackbar.make(requireView(), "Internet connectivity failed", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(requireView(), getString(R.string.internet_connectivity_error), Snackbar.LENGTH_SHORT).show()
     }
 
     /**
@@ -90,6 +93,10 @@ class DisplayLiveNewsFragment : Fragment() {
         findNavController().navigate(action)
     }
 
+    /**
+     * Function to generate dummy news to avoid
+     * API quota limit exceeding
+     */
     private fun getDemoLiveNews() {
         showAnimatedLoader()
         for (i in 0..10) {

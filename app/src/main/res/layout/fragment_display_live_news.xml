@@ -14,7 +14,7 @@
 
     <include
         android:id="@+id/loading_layout"
-        layout="@layout/loading"
+        layout="@layout/loading_layout"
         android:visibility="gone"/>
 
     <include
@@ -35,7 +35,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/unit_16dp"
         android:contentDescription="@string/search_news_fab_text"
-        android:src="@drawable/ic_baseline_search_white_24"
+        android:src="@drawable/icon_search_white"
         app:backgroundTint="@color/purple_700"
         app:fabSize="normal"
         app:tint="@color/white" />

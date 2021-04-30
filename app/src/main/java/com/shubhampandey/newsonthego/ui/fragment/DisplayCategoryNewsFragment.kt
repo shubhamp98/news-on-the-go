@@ -1,7 +1,6 @@
 package com.shubhampandey.newsonthego.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -63,59 +62,89 @@ class DisplayCategoryNewsFragment : Fragment() {
      * Update the UI for selected the category
      */
     private fun showSelectedCategoryInUI() {
-        displayCategoryType_TV.text = " " + categoryType.toUpperCase()
+        displayCategoryType_TV.text = categoryType.toUpperCase()
         when (categoryType) {
-            getString(R.string.news_category_general) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                R.drawable.ic_baseline_blur_circular_24,
-                0,
-                0,
-                0
-            )
-            getString(R.string.news_category_business) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                R.drawable.ic_baseline_business_center_24,
-                0,
-                0,
-                0
-            )
-            getString(R.string.news_category_entertainment) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                R.drawable.ic_baseline_movie_24,
-                0,
-                0,
-                0
-            )
-            getString(R.string.news_category_health) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                R.drawable.ic_baseline_health_and_safety_24,
-                0,
-                0,
-                0
-            )
-            getString(R.string.news_category_science) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                R.drawable.ic_baseline_science_24,
-                0,
-                0,
-                0
-            )
-            getString(R.string.news_category_sports) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                R.drawable.ic_baseline_sports_cricket_24,
-                0,
-                0,
-                0
-            )
-            getString(R.string.news_category_technology) -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                R.drawable.ic_baseline_computer_24,
-                0,
-                0,
-                0
-            )
-            else -> displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                R.drawable.ic_baseline_blur_circular_24,
-                0,
-                0,
-                0
-            )
+            getString(R.string.news_category_general) ->  {
+                displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.icon_blur_circular,
+                    0,
+                    0,
+                    0
+                )
+                displayCategoryType_TV.compoundDrawablePadding = 8
+            }
+
+            getString(R.string.news_category_business) -> {
+                displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.icon_business,
+                    0,
+                    0,
+                    0
+                )
+                displayCategoryType_TV.compoundDrawablePadding = 8
+            }
+            getString(R.string.news_category_entertainment) -> {
+                displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.icon_movie,
+                    0,
+                    0,
+                    0
+                )
+                displayCategoryType_TV.compoundDrawablePadding = 8
+            }
+            getString(R.string.news_category_health) -> {
+                displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.icon_health_and_safety,
+                    0,
+                    0,
+                    0
+                )
+                displayCategoryType_TV.compoundDrawablePadding = 8
+            }
+            getString(R.string.news_category_science) -> {
+                displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.icon_science,
+                    0,
+                    0,
+                    0
+                )
+                displayCategoryType_TV.compoundDrawablePadding = 8
+            }
+            getString(R.string.news_category_sports) -> {
+                displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.icon_sports_cricket,
+                    0,
+                    0,
+                    0
+                )
+                displayCategoryType_TV.compoundDrawablePadding = 8
+            }
+            getString(R.string.news_category_technology) -> {
+                displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.icon_computer,
+                    0,
+                    0,
+                    0
+                )
+                displayCategoryType_TV.compoundDrawablePadding = 8
+            }
+            // By default show General news icon
+            else -> {
+                displayCategoryType_TV.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                    R.drawable.icon_blur_circular,
+                    0,
+                    0,
+                    0
+                )
+                displayCategoryType_TV.compoundDrawablePadding = 8
+            }
         }
     }
 
+    /**
+     * Function to generate dummy news to avoid
+     * API quota limit exceeding
+     */
     private fun getDemoLiveNews() {
         showAnimatedLoader()
         for (i in 0..10) {
@@ -153,18 +182,6 @@ class DisplayCategoryNewsFragment : Fragment() {
         newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
             //Log.i(TAG, "Data is ${it.newsData}")
             if (it != null) {
-                newsDataset.clear()
-                newsDataset.addAll(it.newsData)
-                displayCategoryNews_RV.adapter!!.notifyDataSetChanged()
-            }
-            else {
-                // Handle your error here
-                Log.i(TAG, "No Data Found")
-            }
-            hideAnimatedLoader()
-
-            //Log.i(TAG, "Data is ${it.newsData}")
-            if (it != null) {
                 if (it.newsData.isNotEmpty()) {
                     newsDataset.clear()
                     newsDataset.addAll(it.newsData)
@@ -178,7 +195,7 @@ class DisplayCategoryNewsFragment : Fragment() {
                 }
             } else {
                 // Handle your errors here
-                Log.i(TAG, "Something went wrong!")
+                //Log.e(TAG, getString(R.string.error_message))
                 hideList()
                 display_category_no_info_layout.visibility = View.VISIBLE
                 showError()
@@ -191,7 +208,7 @@ class DisplayCategoryNewsFragment : Fragment() {
         Snackbar.make(
             requireContext(),
             requireView(),
-            "Something went wrong",
+            getString(R.string.error_message),
             Snackbar.LENGTH_SHORT
         ).show()
     }

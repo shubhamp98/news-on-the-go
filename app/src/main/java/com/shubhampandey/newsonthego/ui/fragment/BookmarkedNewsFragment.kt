@@ -51,7 +51,6 @@ class BookmarkedNewsFragment : Fragment() {
                 //Log.i(TAG, "No bookmarked news found...")
                 bookmark_frag_no_info_layout.visibility = View.VISIBLE
                 bookmarkedNewsList_RV.visibility = View.GONE
-
             }
             hideAnimatedLoader()
         })

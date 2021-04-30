@@ -85,6 +85,5 @@ class NewsRepository(context: Context) {
 
     suspend fun removeNewsFromDB(news: NewsDataClass) {
         dbBuilder.newsDao().deleteNewsDetails(news)
-
     }
 }

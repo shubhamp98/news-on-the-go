@@ -11,9 +11,8 @@
         android:id="@+id/searchNews_SV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hapticFeedbackEnabled="true"
         android:iconifiedByDefault="false"
-        android:queryHint="Search for news eg. Science, Business"
+        android:queryHint="@string/search_query_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +24,7 @@
 
     <include
         android:id="@+id/search_frag_loading_layout"
-        layout="@layout/loading"
+        layout="@layout/loading_layout"
         android:visibility="gone"/>
 
     <include
@@ -37,7 +36,7 @@
         android:id="@+id/searchNewsList_RV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="50dp"
+        android:paddingBottom="@dimen/unit_50dp"
         app:layout_constraintTop_toBottomOf="@+id/searchNews_SV"
         android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
