@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/liveNewsFragment"
-        android:name="com.shubhampandey.newsonthego.fragment.DisplayLiveNewsFragment"
+        android:name="com.shubhampandey.newsonthego.ui.fragment.DisplayLiveNewsFragment"
         android:label="Live News"
         tools:layout="@layout/fragment_display_live_news">
         <action
@@ -20,12 +20,12 @@
     </fragment>
     <fragment
         android:id="@+id/searchNewsFragment"
-        android:name="com.shubhampandey.newsonthego.fragment.SearchNewsFragment"
+        android:name="com.shubhampandey.newsonthego.ui.fragment.SearchNewsFragment"
         android:label="Search News"
         tools:layout="@layout/fragment_display_search_news" />
     <fragment
         android:id="@+id/newsCategoryFragment"
-        android:name="com.shubhampandey.newsonthego.fragment.CategorySelectionFragment"
+        android:name="com.shubhampandey.newsonthego.ui.fragment.CategorySelectionFragment"
         android:label="Category"
         tools:layout="@layout/fragment_news_category">
         <action
@@ -38,12 +38,12 @@
     </fragment>
     <fragment
         android:id="@+id/bookmarkedNewsFragment"
-        android:name="com.shubhampandey.newsonthego.fragment.BookmarkedNewsFragment"
+        android:name="com.shubhampandey.newsonthego.ui.fragment.BookmarkedNewsFragment"
         android:label="Bookmarks"
         tools:layout="@layout/fragment_bookmarked_news" />
     <fragment
         android:id="@+id/displaySingleCategoryNewsFragment"
-        android:name="com.shubhampandey.newsonthego.fragment.DisplayCategoryNewsFragment"
+        android:name="com.shubhampandey.newsonthego.ui.fragment.DisplayCategoryNewsFragment"
         android:label="News"
         tools:layout="@layout/fragment_display_category_news" >
         <argument
@@ -53,11 +53,11 @@
     </fragment>
     <fragment
         android:id="@+id/displayFullNewsFragment"
-        android:name="com.shubhampandey.newsonthego.fragment.DisplayFullNewsFragment"
+        android:name="com.shubhampandey.newsonthego.ui.fragment.DisplayFullNewsFragment"
         android:label="News"
         tools:layout="@layout/fragment_display_full_news" />
     <fragment
         android:id="@+id/mySettingsFragment"
-        android:name="com.shubhampandey.newsonthego.fragment.MySettingsFragment"
+        android:name="com.shubhampandey.newsonthego.ui.fragment.MySettingsFragment"
         android:label="Settings" />
 </navigation>

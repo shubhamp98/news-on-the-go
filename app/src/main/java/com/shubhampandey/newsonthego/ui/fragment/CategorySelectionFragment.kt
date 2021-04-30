@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.fragment
+package com.shubhampandey.newsonthego.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.MyApplication
 import com.shubhampandey.newsonthego.R
-import kotlinx.android.synthetic.main.fragment_display_live_news.*
 import kotlinx.android.synthetic.main.fragment_news_category.*
 import kotlinx.android.synthetic.main.no_internet.*
 

@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.fragment
+package com.shubhampandey.newsonthego.ui.fragment
 
 import android.app.Application
 import android.content.Intent
@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.R
-import com.shubhampandey.newsonthego.dataclass.NewsDataClass
-import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
+import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.ui.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_display_full_news.*
 
 class DisplayFullNewsFragment : Fragment() {

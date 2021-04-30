@@ -1,6 +1,6 @@
-package com.shubhampandey.newsonthego.network
+package com.shubhampandey.newsonthego.data.network
 
-import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
+import com.shubhampandey.newsonthego.data.dataclass.ResponseDataClass
 import retrofit2.http.GET
 import retrofit2.http.Query
 

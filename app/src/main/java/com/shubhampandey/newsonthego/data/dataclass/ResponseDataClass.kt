@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.dataclass
+package com.shubhampandey.newsonthego.data.dataclass
 
 import com.google.gson.annotations.SerializedName
 

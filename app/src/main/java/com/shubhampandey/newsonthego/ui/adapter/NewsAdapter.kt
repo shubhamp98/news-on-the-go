@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.adapter
+package com.shubhampandey.newsonthego.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shubhampandey.newsonthego.R
-import com.shubhampandey.newsonthego.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
 
 class NewsAdapter(private val context: Context, private val dataSet: List<NewsDataClass>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -42,7 +42,7 @@ class NewsAdapter(private val context: Context, private val dataSet: List<NewsDa
 
     // Replace the contents of a view (invoked by the layout manager)
     // Used to replace/update views at a specific position
-    override fun onBindViewHolder(holder: NewsAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.compactNewsTitleTextView.text = dataSet[position].newsTitle
         holder.compactNewsPublishedAtTextView.text = " " + dataSet[position].newsPublishedAt
         holder.compactNewsPublishedAtTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_date_range_20, 0, 0, 0)

@@ -1,11 +1,11 @@
-package com.shubhampandey.newsonthego.viewmodel
+package com.shubhampandey.newsonthego.ui.viewmodel
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.shubhampandey.newsonthego.dataclass.NewsDataClass
-import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
-import com.shubhampandey.newsonthego.repository.NewsRepository
+import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.data.dataclass.ResponseDataClass
+import com.shubhampandey.newsonthego.data.repository.NewsRepository
 import kotlinx.coroutines.launch
 
 class NewsViewModel(application: Application) : AndroidViewModel(application) {

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/light_gray"
-    tools:context=".fragment.DisplayCategoryNewsFragment">
+    tools:context=".ui.fragment.DisplayCategoryNewsFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.fragment
+package com.shubhampandey.newsonthego.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.MyApplication
 import com.shubhampandey.newsonthego.R
-import com.shubhampandey.newsonthego.util.SharedPrefUtil
-import com.shubhampandey.newsonthego.adapter.NewsAdapter
-import com.shubhampandey.newsonthego.dataclass.NewsDataClass
-import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
+import com.shubhampandey.newsonthego.utils.SharedPrefUtil
+import com.shubhampandey.newsonthego.ui.adapter.NewsAdapter
+import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.ui.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_display_search_news.*
 import kotlinx.android.synthetic.main.no_internet.*
 

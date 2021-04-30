@@ -1,8 +1,6 @@
-package com.shubhampandey.newsonthego.fragment
+package com.shubhampandey.newsonthego.ui.fragment
 
-import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shubhampandey.newsonthego.R
-import com.shubhampandey.newsonthego.adapter.NewsAdapter
-import com.shubhampandey.newsonthego.database.RoomDatabaseBuilder
-import com.shubhampandey.newsonthego.dataclass.NewsDataClass
-import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
+import com.shubhampandey.newsonthego.ui.adapter.NewsAdapter
+import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.ui.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_bookmarked_news.*
-import kotlinx.android.synthetic.main.fragment_display_category_news.*
-import kotlinx.android.synthetic.main.fragment_display_search_news.*
-import java.util.concurrent.Executors
 
 class BookmarkedNewsFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.dataclass
+package com.shubhampandey.newsonthego.data.dataclass
 
 
 import androidx.room.ColumnInfo

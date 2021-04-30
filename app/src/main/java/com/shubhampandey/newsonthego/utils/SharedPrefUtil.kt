@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.util
+package com.shubhampandey.newsonthego.utils
 
 import android.content.Context
 import androidx.preference.PreferenceManager

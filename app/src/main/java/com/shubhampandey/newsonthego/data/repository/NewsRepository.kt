@@ -1,16 +1,13 @@
-package com.shubhampandey.newsonthego.repository
+package com.shubhampandey.newsonthego.data.repository
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.shubhampandey.newsonthego.database.RoomDatabaseBuilder
-import com.shubhampandey.newsonthego.dataclass.NewsDataClass
-import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
-import com.shubhampandey.newsonthego.network.ApiClient
-import kotlinx.android.synthetic.main.fragment_bookmarked_news.*
+import com.shubhampandey.newsonthego.data.database.RoomDatabaseBuilder
+import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.data.dataclass.ResponseDataClass
+import com.shubhampandey.newsonthego.data.network.ApiClient
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.concurrent.Executors
 
 class NewsRepository(context: Context) {
 

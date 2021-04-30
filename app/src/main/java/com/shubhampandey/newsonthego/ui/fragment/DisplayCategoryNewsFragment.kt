@@ -1,30 +1,22 @@
-package com.shubhampandey.newsonthego.fragment
+package com.shubhampandey.newsonthego.ui.fragment
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.R
-import com.shubhampandey.newsonthego.adapter.NewsAdapter
-import com.shubhampandey.newsonthego.dataclass.NewsDataClass
-import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
-import com.shubhampandey.newsonthego.network.ApiClient
-import com.shubhampandey.newsonthego.util.SharedPrefUtil
-import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
+import com.shubhampandey.newsonthego.ui.adapter.NewsAdapter
+import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.utils.SharedPrefUtil
+import com.shubhampandey.newsonthego.ui.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_display_category_news.*
-import kotlinx.android.synthetic.main.fragment_display_live_news.*
-import retrofit2.Callback
-import retrofit2.Response
 
 class DisplayCategoryNewsFragment : Fragment() {
 

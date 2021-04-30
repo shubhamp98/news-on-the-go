@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.network
+package com.shubhampandey.newsonthego.data.network
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

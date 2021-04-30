@@ -1,11 +1,10 @@
-package com.shubhampandey.newsonthego.database
+package com.shubhampandey.newsonthego.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.shubhampandey.newsonthego.dataclass.NewsDataClass
+import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
 
 
 @Dao

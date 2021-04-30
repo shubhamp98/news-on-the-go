@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.database
+package com.shubhampandey.newsonthego.data.database
 
 import android.content.Context
 import androidx.room.Room

@@ -1,4 +1,4 @@
-package com.shubhampandey.newsonthego.fragment
+package com.shubhampandey.newsonthego.ui.fragment
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
