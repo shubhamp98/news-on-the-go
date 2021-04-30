@@ -11,11 +11,11 @@ import com.shubhampandey.newsonthego.dataclass.NewsDataClass
 @Dao
 interface NewsDao {
     @Query("SELECT * FROM news")
-    fun getAllNews(): List<NewsDataClass>
+    suspend fun getAllNews(): List<NewsDataClass>
 
     @Insert
-    fun insertNewsDetails(news: NewsDataClass)
+    suspend fun insertNewsDetails(news: NewsDataClass)
 
     @Delete
-    fun deleteNewsDetails(news: NewsDataClass)
+    suspend fun deleteNewsDetails(news: NewsDataClass)
 }

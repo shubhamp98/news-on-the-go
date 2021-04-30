@@ -60,39 +60,34 @@ class NewsRepository(context: Context) {
     }
 
     /**
-     * Fetch saved news from Room DB
+     * Fetch saved news from Room DB using Coroutine [suspend]
      */
-    fun getNewsFromDB() {
-        Executors.newSingleThreadExecutor().execute {
-            val newsList = dbBuilder.newsDao().getAllNews()
-            Log.d(TAG, "Data is $newsList")
-            // get data from Database
-            newsResponsesFromDBLiveData.postValue(newsList)
-        }
+    suspend fun getNewsFromDB() {
+        val newsList = dbBuilder.newsDao().getAllNews()
+        //Log.d(TAG, "Data is $newsList")
+        // get data from Database
+        newsResponsesFromDBLiveData.postValue(newsList)
     }
 
     /**
      * Save news item to local database
      */
-    fun insertNewsToDB(news: NewsDataClass) {
-        Executors.newSingleThreadExecutor().execute {
-            dbBuilder.newsDao().insertNewsDetails(
-                NewsDataClass(
-                    news.id,
-                    news.newsTitle,
-                    news.newsDescription,
-                    news.newsThumbnailImageURL,
-                    news.newsPublishedAt,
-                    news.newsSource,
-                    news.newsURL
-                )
+    suspend fun insertNewsToDB(news: NewsDataClass) {
+        dbBuilder.newsDao().insertNewsDetails(
+            NewsDataClass(
+                news.id,
+                news.newsTitle,
+                news.newsDescription,
+                news.newsThumbnailImageURL,
+                news.newsPublishedAt,
+                news.newsSource,
+                news.newsURL
             )
-        }
+        )
     }
 
-    fun removeNewsFromDB(news: NewsDataClass) {
-        Executors.newSingleThreadExecutor().execute {
-            dbBuilder.newsDao().deleteNewsDetails(news)
-        }
+    suspend fun removeNewsFromDB(news: NewsDataClass) {
+        dbBuilder.newsDao().deleteNewsDetails(news)
+
     }
 }

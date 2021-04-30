@@ -1,10 +1,12 @@
 package com.shubhampandey.newsonthego.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
 import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
 import com.shubhampandey.newsonthego.repository.NewsRepository
+import kotlinx.coroutines.launch
 
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private val TAG = NewsViewModel::class.java.simpleName
@@ -30,14 +32,39 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getNewsFromDB() {
-        newsRepository.getNewsFromDB()
+        // Using Coroutine
+        viewModelScope.launch {
+            try {
+                newsRepository.getNewsFromDB()
+            }
+            catch (e: Exception) {
+                // handler error
+                Log.e(TAG, e.localizedMessage!!)
+            }
+        }
     }
 
     fun saveNewsToDB(news: NewsDataClass) {
-        newsRepository.insertNewsToDB(news)
+        viewModelScope.launch {
+            try {
+                newsRepository.insertNewsToDB(news)
+            }
+            catch (e: Exception) {
+                // handler error
+                Log.e(TAG, e.localizedMessage!!)
+            }
+        }
     }
 
     fun deleteNewsFromDB(news: NewsDataClass) {
-        newsRepository.removeNewsFromDB(news)
+        viewModelScope.launch {
+            try {
+                newsRepository.removeNewsFromDB(news)
+            }
+            catch (e: Exception) {
+                // handler error
+                Log.e(TAG, e.localizedMessage!!)
+            }
+        }
     }
 }
