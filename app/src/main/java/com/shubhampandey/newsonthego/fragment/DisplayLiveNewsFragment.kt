@@ -1,11 +1,8 @@
 package com.shubhampandey.newsonthego.fragment
 
-import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -13,16 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.MyApplication
 import com.shubhampandey.newsonthego.R
+import com.shubhampandey.newsonthego.util.SharedPrefUtil
 import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
-import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
 import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_display_live_news.*
-import kotlinx.android.synthetic.main.fragment_display_search_news.*
 import kotlinx.android.synthetic.main.no_internet.*
-import retrofit2.Callback
-import retrofit2.Response
 
 class DisplayLiveNewsFragment : Fragment() {
 
@@ -138,10 +131,10 @@ class DisplayLiveNewsFragment : Fragment() {
         newsViewModel.getNewsFromAPI(
             accessKey = getString(R.string.mediastacknews_access_key),
             category = null,
-            country = getString(R.string.default_country_india),
+            country = SharedPrefUtil.getCountryFromPref(requireActivity())!!,
             searchKeyword = null,
             fetchLimit = null,
-            language = getString(R.string.default_language_english),
+            language = SharedPrefUtil.getLanguageFromPref(requireActivity())!!,
             sort = getString(
                 R.string.default_sort_order
             )

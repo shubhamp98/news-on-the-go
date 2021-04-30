@@ -56,4 +56,8 @@
         android:name="com.shubhampandey.newsonthego.fragment.DisplayFullNewsFragment"
         android:label="News"
         tools:layout="@layout/fragment_display_full_news" />
+    <fragment
+        android:id="@+id/mySettingsFragment"
+        android:name="com.shubhampandey.newsonthego.fragment.MySettingsFragment"
+        android:label="Settings" />
 </navigation>

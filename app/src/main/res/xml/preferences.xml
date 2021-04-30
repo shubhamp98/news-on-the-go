@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="news_country"
+        app:title="Country">
+
+    <ListPreference
+        android:title="Select Country"
+        android:summary="Get news for selected country"
+        android:key="news_by_country"
+        android:defaultValue="@string/default_country_india"
+        android:entries="@array/countryNameArray"
+        android:entryValues="@array/countryValuesArray"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="news_in_language"
+        android:title="Language">
+
+        <ListPreference
+            android:title="Select Language"
+            android:summary="Get news in your selected language"
+            android:key="news_language"
+            android:defaultValue="@string/default_language_english"
+            android:entries="@array/languageArray"
+            android:entryValues="@array/languageValuesArray"/>
+    </PreferenceCategory>
+</PreferenceScreen>

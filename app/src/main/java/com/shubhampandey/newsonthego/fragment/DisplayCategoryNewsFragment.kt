@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.shubhampandey.newsonthego.R
@@ -18,6 +19,7 @@ import com.shubhampandey.newsonthego.adapter.NewsAdapter
 import com.shubhampandey.newsonthego.dataclass.NewsDataClass
 import com.shubhampandey.newsonthego.dataclass.ResponseDataClass
 import com.shubhampandey.newsonthego.network.ApiClient
+import com.shubhampandey.newsonthego.util.SharedPrefUtil
 import com.shubhampandey.newsonthego.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.fragment_display_category_news.*
 import kotlinx.android.synthetic.main.fragment_display_live_news.*
@@ -150,10 +152,10 @@ class DisplayCategoryNewsFragment : Fragment() {
         newsViewModel.getNewsFromAPI(
             accessKey = getString(R.string.mediastacknews_access_key),
             category = categoryType,
-            country = getString(R.string.default_country_india),
+            country = SharedPrefUtil.getCountryFromPref(requireActivity())!!,
             searchKeyword = null,
             fetchLimit = null,
-            language = getString(R.string.default_language_english),
+            language = SharedPrefUtil.getLanguageFromPref(requireActivity())!!,
             sort = getString(R.string.default_sort_order
             ))
         newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
