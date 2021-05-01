@@ -77,7 +77,7 @@
                         android:layout_marginStart="@dimen/unit_10dp"
                         android:layout_marginTop="@dimen/unit_20dp"
                         android:layout_marginBottom="@dimen/unit_20dp"
-                        android:text=""
+                        android:text="@string/general"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_20sp" />
                 </LinearLayout>
