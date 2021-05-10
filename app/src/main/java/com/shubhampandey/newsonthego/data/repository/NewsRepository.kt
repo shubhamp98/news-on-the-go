@@ -2,16 +2,18 @@ package com.shubhampandey.newsonthego.data.repository
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
+import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.data.database.RoomDatabaseBuilder
 import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
 import com.shubhampandey.newsonthego.data.dataclass.ResponseDataClass
 import com.shubhampandey.newsonthego.data.network.ApiClient
+import com.shubhampandey.newsonthego.utils.SharedPrefUtil
 import retrofit2.Callback
 import retrofit2.Response
 
 class NewsRepository(context: Context) {
 
-    private val TAG = NewsRepository::class.java.simpleName
+    private val TAG: String = NewsRepository::class.java.simpleName
     val newsResponsesFromNetworkLiveData: MutableLiveData<ResponseDataClass?> =
         MutableLiveData<ResponseDataClass?>()
     val newsResponsesFromDBLiveData: MutableLiveData<List<NewsDataClass>> =
@@ -19,12 +21,19 @@ class NewsRepository(context: Context) {
     private val dbBuilder = RoomDatabaseBuilder.getInstance(context)
 
 
+    // API parameters which will never change
+    // and will remain same for each API call
+    private val accessKey = context.getString(R.string.mediastacknews_access_key)
+    private val country = SharedPrefUtil.getCountryFromPref(context)!!
+    private val fetchLimit = null
+    private val language = SharedPrefUtil.getLanguageFromPref(context)!!
+    private val sortBy = context.getString(R.string.default_sort_order)
+
     /**
      * Call network model to fetch the news
      */
     fun getNewsFromNetwork(
-        accessKey: String, category: String?, country: String, searchKeyword: String?,
-        fetchLimit: Int?, language: String, sort: String
+        category: String?, searchKeyword: String?
     ) {
         val call = ApiClient.getClient.getNews(
             accessKey,
@@ -33,7 +42,7 @@ class NewsRepository(context: Context) {
             searchKeyword,
             fetchLimit,
             language,
-            sort
+            sortBy
         )
         call.enqueue(object : Callback<ResponseDataClass> {
             override fun onFailure(call: retrofit2.Call<ResponseDataClass>, t: Throwable) {

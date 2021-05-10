@@ -3,9 +3,11 @@ package com.shubhampandey.newsonthego.ui.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
 import com.shubhampandey.newsonthego.data.dataclass.ResponseDataClass
 import com.shubhampandey.newsonthego.data.repository.NewsRepository
+import com.shubhampandey.newsonthego.utils.SharedPrefUtil
 import kotlinx.coroutines.launch
 
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
@@ -20,17 +22,11 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
      * Get news from API/Network
      */
     fun getNewsFromAPI(
-        accessKey: String, category: String?, country: String, searchKeyword: String?,
-        fetchLimit: Int?, language: String, sort: String
+        category: String?, searchKeyword: String?
     ) {
         newsRepository.getNewsFromNetwork(
-            accessKey,
             category,
-            country,
-            searchKeyword,
-            fetchLimit,
-            language,
-            sort
+            searchKeyword
         )
     }
 
@@ -39,8 +35,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 newsRepository.getNewsFromDB()
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 // handler error
                 Log.e(TAG, e.localizedMessage!!)
             }
@@ -51,8 +46,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 newsRepository.insertNewsToDB(news)
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 // handler error
                 Log.e(TAG, e.localizedMessage!!)
             }
@@ -63,8 +57,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 newsRepository.removeNewsFromDB(news)
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 // handler error
                 Log.e(TAG, e.localizedMessage!!)
             }

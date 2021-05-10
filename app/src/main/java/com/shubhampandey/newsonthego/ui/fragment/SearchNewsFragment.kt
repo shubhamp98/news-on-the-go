@@ -95,15 +95,8 @@ class SearchNewsFragment : Fragment() {
     private fun getSearchedNews(searchedKeywords: String) {
         val newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         newsViewModel.getNewsFromAPI(
-            accessKey = getString(R.string.mediastacknews_access_key),
             category = null,
-            country = SharedPrefUtil.getCountryFromPref(requireActivity())!!,
             searchKeyword = searchedKeywords,
-            fetchLimit = null,
-            language = SharedPrefUtil.getLanguageFromPref(requireActivity())!!,
-            sort = getString(
-                R.string.default_sort_order
-            )
         )
         newsViewModel.newsResponsesLiveData.observe(viewLifecycleOwner, Observer {
             //Log.i(TAG, "Data is ${it?.newsData}")
