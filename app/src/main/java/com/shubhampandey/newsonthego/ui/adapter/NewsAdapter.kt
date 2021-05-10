@@ -1,6 +1,7 @@
 package com.shubhampandey.newsonthego.ui.adapter
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.shubhampandey.newsonthego.R
 import com.shubhampandey.newsonthego.data.dataclass.NewsDataClass
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class NewsAdapter(private val context: Context, private val dataSet: List<NewsDataClass>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -49,7 +52,19 @@ class NewsAdapter(private val context: Context, private val dataSet: List<NewsDa
 
     private fun bindItems(holder: ViewHolder, position: Int) {
         holder.newsTitle.text = dataSet[position].newsTitle
-        holder.newsPublishedAt.text = dataSet[position].newsPublishedAt
+        val originalDate = dataSet[position].newsPublishedAt.substring(0, 10)
+        val formatter: DateTimeFormatter?
+        val date: LocalDate?
+        val formattedDate: String?
+        // Date formatter
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            date = LocalDate.parse(originalDate)
+            formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy")
+            formattedDate = date.format(formatter)
+        } else {
+            formattedDate = originalDate
+        }
+        holder.newsPublishedAt.text = formattedDate
         holder.newsPublishedAt.setCompoundDrawablesRelativeWithIntrinsicBounds(
             R.drawable.icon_date_range,
             0,

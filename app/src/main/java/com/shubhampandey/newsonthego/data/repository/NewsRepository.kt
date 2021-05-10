@@ -25,7 +25,7 @@ class NewsRepository(context: Context) {
     // and will remain same for each API call
     private val accessKey = context.getString(R.string.mediastacknews_access_key)
     private val country = SharedPrefUtil.getCountryFromPref(context)!!
-    private val fetchLimit = null
+    private val fetchLimit: Int? = null
     private val language = SharedPrefUtil.getLanguageFromPref(context)!!
     private val sortBy = context.getString(R.string.default_sort_order)
 
