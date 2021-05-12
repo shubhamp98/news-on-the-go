@@ -226,7 +226,7 @@ class SearchNewsFragment : Fragment() {
                     "This is dummy title of News. This is dummy title of News",
                     "This is a dummy new description for UI purpose. This is dummy title of News. This is dummy title of News",
                     "https://static.vecteezy.com/system/resources/previews/000/228/631/non_2x/vector-news-background-with-text-live-updates.jpg",
-                    "24-04-2021",
+                    "2021-04-24",
                     "Dummy Source",
                     "hello"
                 )

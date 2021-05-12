@@ -1,6 +1,7 @@
 package com.shubhampandey.newsonthego.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -34,6 +35,7 @@ class DisplayLiveNewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Log.i(TAG, "onViewCreated")
         if (hasNetworkConnectivity()) {
             tryConnectivity()
         } else {
@@ -47,6 +49,15 @@ class DisplayLiveNewsFragment : Fragment() {
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        //Log.i(TAG, "onActivityCreated")
+
+    }
+
+
+
     /**
      * Check connectivity with network and do the work
      */
@@ -54,7 +65,7 @@ class DisplayLiveNewsFragment : Fragment() {
         if (hasNetworkConnectivity()) {
             setupUI()
             getLiveNews()
-            //getDemoLiveNews()
+//            getDemoLiveNews()
             no_connection_Layout.visibility = View.GONE
             searchNews_FAB.visibility = View.VISIBLE
         } else {
@@ -106,7 +117,7 @@ class DisplayLiveNewsFragment : Fragment() {
                     "This is dummy title of News. This is dummy title of News",
                     "This is a dummy new description for UI purpose. This is dummy title of News. This is dummy title of News",
                     "https://static.vecteezy.com/system/resources/previews/000/228/631/non_2x/vector-news-background-with-text-live-updates.jpg",
-                    "24-04-2021",
+                    "2021-04-24",
                     "Dummy Source",
                     "hello"
                 )
