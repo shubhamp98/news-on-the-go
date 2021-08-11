@@ -7,6 +7,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+        storeFile file("D:\\Shubham\\Projects\\News On The Go-20210722T162504Z-001\\News On The Go\\Keystores\\NewsOnTheGo_Keystore.jks")
+            storePassword 'shubham1998'
+            keyAlias 'key0'
+            keyPassword 'shubham1998'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -18,11 +26,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
